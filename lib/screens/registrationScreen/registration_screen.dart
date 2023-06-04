@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import '../../constants/color_constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/register';
@@ -24,7 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             height: 50,
             width: deviceSize.width-80,
             alignment: Alignment.topCenter,
-            color: Colors.red,
+            color: kFFFFFF,
           )
         ],
       ),

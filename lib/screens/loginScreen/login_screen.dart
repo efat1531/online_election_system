@@ -40,16 +40,33 @@ class _LoginScreenState extends State<LoginScreen> {
       /**
        * This stack is for placing background and widgets in the background
        */
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          Column(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Container(
+          height: deviceSize.height,
+          width: deviceSize.width,
+          padding: EdgeInsets.zero,
+          margin: EdgeInsets.all(0),
+          color: kF5F5F5,
+          child: Column(
+            //padding: EdgeInsets.all(0),
             children: [
-              /**
-               * This height box only for alignment in the page. Nothing else
-               */
-              SizedBox(
-                height: deviceSize.height * 0.20,
+              Stack(
+                children: [
+                  SizedBox(
+                    height: deviceSize.height * 0.20,
+                    width: deviceSize.width,
+                  ),
+                  Positioned(
+                    right: deviceSize.width * 0.06,
+                    top: deviceSize.height * 0.05,
+                    child: SvgPicture.asset(
+                      'assets/svg/login_screen_top_svg.svg',
+                      height: deviceSize.height * 0.15,
+                      width: deviceSize.height * 0.14,
+                    ),
+                  ),
+                ],
               ),
               /**
                * Welcome text on top
@@ -93,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                * Sizebox for alignment.
                */
               SvgPicture.asset(
-                'assets/svg/Login.svg',
+                'assets/svg/login_page_middle_svg.svg',
                 height: deviceSize.height * 0.29,
                 alignment: Alignment.center,
               ),
@@ -139,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.all(20),
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.emailAddress,
                           enableSuggestions: false,
                           autocorrect: false,
                           onFieldSubmitted: (value) {
@@ -207,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           width: MediaQuery.of(context).size.width - 80,
-                          height: deviceSize.height*0.06,
+                          height: deviceSize.height * 0.06,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: kMainColor,
@@ -260,10 +277,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

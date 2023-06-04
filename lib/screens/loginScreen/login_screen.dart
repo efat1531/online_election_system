@@ -41,12 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
        * This stack is for placing background and widgets in the background
        */
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
         child: Container(
           height: deviceSize.height,
           width: deviceSize.width,
-          padding: EdgeInsets.zero,
-          margin: EdgeInsets.all(0),
+          padding:const EdgeInsets.all(0),
+          margin: const EdgeInsets.all(0),
           color: kF5F5F5,
           child: Column(
             //padding: EdgeInsets.all(0),

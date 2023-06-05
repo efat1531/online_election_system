@@ -1,3 +1,6 @@
+import '../providers/nid_databse_provider.dart';
+import '../models/nid_model.dart';
+
 class UserModel {
   final String firstName;
   final String lastName;
@@ -5,6 +8,9 @@ class UserModel {
   final String phone;
   final DateTime dateofbirth;
   final String nid;
+  final Districts district;
+  final Division division;
+  final Gender gender;
   final String userRole;
   UserModel({
     required this.nid,
@@ -13,6 +19,9 @@ class UserModel {
     required this.email,
     required this.dateofbirth,
     required this.phone,
-    this.userRole="Citizen",
+    required this.district,
+    required this.division,
+    required this.gender,
+    this.userRole = "Citizen",
   });
 }

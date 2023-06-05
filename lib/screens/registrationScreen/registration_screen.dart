@@ -280,6 +280,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       if (value!.isEmpty) {
                                         return "Last Name can't be empty";
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),
@@ -333,7 +334,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter NID Number';
-                                  } else if (value.length != 10 && value.length!=13 ) {
+                                  } else if (value.length != 10 &&
+                                      value.length != 13) {
                                     return 'Wrong NID Number. Length should be 10 or 13';
                                   }
                                   return null;

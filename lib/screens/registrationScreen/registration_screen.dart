@@ -5,16 +5,19 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:oes/providers/auth_provider.dart';
-import '../../providers/nid_databse_provider.dart';
 import 'package:provider/provider.dart';
-import '../../constants/color_constants.dart';
-import '../loginScreen/login_screen.dart';
-import '../../models/user_description.dart';
-import './show_dialouge_nidVarification.dart';
-import '../../providers/user_provider.dart';
+import './error_dialouge.dart';
 import './showDialouge_DuplicateNID.dart';
+import './show_dialouge_nidVarification.dart';
+import './showDialouge_error.dart';
+import '../loginScreen/login_screen.dart';
+import '../../providers/auth_provider.dart';
+import '../../providers/nid_databse_provider.dart';
+import '../../constants/color_constants.dart';
+import '../../models/user_description.dart';
+import '../../providers/user_provider.dart';
 import '../../models/nid_model.dart';
+import '../../models/httpException.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/register';
@@ -78,6 +81,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     division: Division.Dhaka,
     gender: Gender.Other,
   );
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _passwordController.dispose();
+    _nidPinController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     /**
@@ -211,6 +223,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         gender: _user.gender,
                                       );
                                     },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "First Name can't be empty";
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ),
                                 /**
@@ -257,6 +275,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         division: _user.division,
                                         gender: _user.gender,
                                       );
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Last Name can't be empty";
+                                      }
                                     },
                                   ),
                                 ),
@@ -310,8 +333,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter NID Number';
-                                  } else if (value.length != 10) {
-                                    return 'Wrong NID Number. Length should be 10';
+                                  } else if (value.length != 10 && value.length!=13 ) {
+                                    return 'Wrong NID Number. Length should be 10 or 13';
                                   }
                                   return null;
                                 },
@@ -659,16 +682,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     _isLoading = true;
                                   });
                                   _user = UserModel(
-                                        nid: _user.nid,
-                                        firstName: _user.firstName,
-                                        lastName: _user.lastName,
-                                        email: _user.email,
-                                        dateofbirth: _selectedDate,
-                                        phone: _user.phone,
-                                        district: varificationResult.district,
-                                        division: varificationResult.division,
-                                        gender: varificationResult.gender,
-                                      );
+                                    nid: _user.nid,
+                                    firstName: _user.firstName,
+                                    lastName: _user.lastName,
+                                    email: _user.email,
+                                    dateofbirth: _selectedDate,
+                                    phone: _user.phone,
+                                    district: varificationResult.district,
+                                    division: varificationResult.division,
+                                    gender: varificationResult.gender,
+                                  );
                                   try {
                                     await Provider.of<AuthProvider>(context,
                                             listen: false)
@@ -687,10 +710,47 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           .pushReplacementNamed(
                                               LoginScreen.routeName);
                                     } catch (error) {
-                                      print(error);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            SomethingWentWrongDialouge(),
+                                      );
                                     }
+                                  } on HttpException catch (error) {
+                                    var errorMessage = 'Registration Failed';
+                                    if (error
+                                        .toString()
+                                        .contains('EMAIL_EXISTS')) {
+                                      errorMessage =
+                                          'This email address is already in use.';
+                                    } else if (error
+                                        .toString()
+                                        .contains('INVALID_EMAIL')) {
+                                      errorMessage =
+                                          'This is not a valid email address';
+                                    } else if (error
+                                        .toString()
+                                        .contains('WEAK_PASSWORD')) {
+                                      errorMessage =
+                                          'This password is too weak.';
+                                    }
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          ErrorDialouge(errorMessage),
+                                    );
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
                                   } catch (error) {
-                                    print(error);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          SomethingWentWrongDialouge(),
+                                    );
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
                                   }
                                 } else {
                                   showDialog(
@@ -698,6 +758,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     builder: (context) =>
                                         ShowDialougeDuplicateNid(),
                                   );
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
                                 }
                               },
                               child: Container(

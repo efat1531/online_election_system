@@ -1,4 +1,3 @@
-import '../providers/nid_databse_provider.dart';
 import '../models/nid_model.dart';
 
 class UserModel {

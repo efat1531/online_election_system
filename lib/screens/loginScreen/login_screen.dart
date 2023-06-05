@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           height: deviceSize.height,
           width: deviceSize.width,
-          padding:const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           margin: const EdgeInsets.all(0),
           color: kF5F5F5,
           child: Column(
@@ -121,7 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: SizedBox(
                   height: deviceSize.height * 0.25,
                   width: deviceSize.width - 80,
-
                   //color: Colors.red,
                   /**
                    * Here we are adding the form inputs
@@ -139,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textInputAction: TextInputAction.next,
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
@@ -162,6 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             FocusScope.of(context)
                                 .requestFocus(_passwordFocusNode);
                           },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Insert Email';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
                             _authData['email'] = newValue!;
                           },
@@ -181,6 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                          * Second Input Password
                          */
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           focusNode: _passwordFocusNode,
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
@@ -197,6 +204,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.all(20),
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Insert Password';
+                            }
+                            return null;
+                          },
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           enableSuggestions: false,
@@ -215,6 +228,8 @@ class _LoginScreenState extends State<LoginScreen> {
                        */
                       GestureDetector(
                         onTap: () {
+                          final _isValid = _formkey.currentState!.validate();
+                          if (!_isValid) return;
                           _formkey.currentState?.save();
                           print(_authData);
                           print(deviceSize.height);

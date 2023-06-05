@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../constants/color_constants.dart';
 import '../loginScreen/login_screen.dart';
+import '../../models/user_description.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/register';
@@ -14,6 +16,12 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
+  final _passwordController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   DateTime _selectedDate = DateTime.parse('0000-00-00');
   void _showDateTimePicker() {
     showDatePicker(
@@ -28,9 +36,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         _selectedDate = value;
       });
+      _user = UserModel(
+        nid: _user.nid,
+        firstName: _user.firstName,
+        lastName: _user.lastName,
+        email: _user.email,
+        dateofbirth: _selectedDate,
+        phone: _user.phone,
+      );
     });
   }
 
+  UserModel _user = UserModel(
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateofbirth: DateTime.now(),
+    phone: '',
+    nid: '',
+  );
   @override
   Widget build(BuildContext context) {
     /**
@@ -103,6 +127,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Container(
                 width: deviceSize.width - 60,
                 child: Form(
+                  key: _formkey,
                   /**
                    * This column hold the form elements with button
                    */
@@ -119,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            */
                           Container(
                             height: deviceSize.height * 0.07,
-                            width: (deviceSize.width - 60) * 0.48,
+                            width: (deviceSize.width - 60) * 0.47,
                             decoration: BoxDecoration(
                               color: kFFFFFF,
                               borderRadius: BorderRadius.circular(10),
@@ -144,6 +169,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               keyboardType: TextInputType.name,
                               enableSuggestions: false,
                               autocorrect: false,
+                              onSaved: (newValue) {
+                                _user = UserModel(
+                                  nid: _user.nid,
+                                  firstName: newValue!,
+                                  lastName: _user.lastName,
+                                  email: _user.email,
+                                  dateofbirth: _selectedDate,
+                                  phone: _user.phone,
+                                );
+                              },
                             ),
                           ),
                           /**
@@ -151,7 +186,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            */
                           Container(
                             height: deviceSize.height * 0.07,
-                            width: (deviceSize.width - 60) * 0.43,
+                            width: (deviceSize.width - 60) * 0.47,
                             decoration: BoxDecoration(
                               color: kFFFFFF,
                               borderRadius: BorderRadius.circular(10),
@@ -176,6 +211,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               keyboardType: TextInputType.name,
                               enableSuggestions: false,
                               autocorrect: false,
+                              onSaved: (newValue) {
+                                _user = UserModel(
+                                  nid: _user.nid,
+                                  firstName: _user.firstName,
+                                  lastName: newValue!,
+                                  email: _user.email,
+                                  dateofbirth: _selectedDate,
+                                  phone: _user.phone,
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -212,6 +257,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           keyboardType: TextInputType.number,
                           enableSuggestions: false,
                           autocorrect: false,
+                          onSaved: (newValue) {
+                            _user = UserModel(
+                              nid: newValue!,
+                              firstName: _user.firstName,
+                              lastName: _user.lastName,
+                              email: _user.email,
+                              dateofbirth: _selectedDate,
+                              phone: _user.phone,
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -246,6 +301,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           keyboardType: TextInputType.number,
                           enableSuggestions: false,
                           autocorrect: false,
+                          onSaved: (newValue) {
+                            _user = UserModel(
+                              nid: _user.nid,
+                              firstName: _user.firstName,
+                              lastName: _user.lastName,
+                              email: _user.email,
+                              dateofbirth: _selectedDate,
+                              phone: newValue!,
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -280,6 +345,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           keyboardType: TextInputType.emailAddress,
                           enableSuggestions: false,
                           autocorrect: false,
+                          onSaved: (newValue) {
+                            _user = UserModel(
+                              nid: _user.nid,
+                              firstName: _user.firstName,
+                              lastName: _user.lastName,
+                              email: newValue!,
+                              dateofbirth: _selectedDate,
+                              phone: _user.phone,
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -315,6 +390,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           enableSuggestions: false,
                           obscureText: true,
                           autocorrect: false,
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password can\'t be empty';
+                            } else if (value.length < 8) {
+                              return 'Minimum length of password should be 8';
+                            } else if (!value.contains('@') &&
+                                !value.contains('#') &&
+                                !value.contains('\$')) {
+                              return 'Password must contain # or @ or \$';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -342,7 +430,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               //fontWeight: FontWeight.w400,
                               color: k3B3B3B,
                             ),
-                            hintText: 'Retype Password',
+                            hintText: 'Confirm Password',
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.all(20),
                           ),
@@ -350,6 +438,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter confirm password';
+                            } else if (value != _passwordController.text) {
+                              return 'Passwords doesn\'t match';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -366,7 +462,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                            */
                           Container(
                             height: deviceSize.height * 0.07,
-                            width: (deviceSize.width - 60) * 0.49,
+                            width: (deviceSize.width - 60) * 0.47,
                             decoration: BoxDecoration(
                               color: kFFFFFF,
                               borderRadius: BorderRadius.circular(10),
@@ -392,6 +488,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Enter NID Pin';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           /**
@@ -401,7 +503,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             children: [
                               Container(
                                 height: deviceSize.height * 0.07,
-                                width: (deviceSize.width - 60) * 0.49,
+                                width: (deviceSize.width - 60) * 0.47,
                                 decoration: BoxDecoration(
                                   color: kFFFFFF,
                                   borderRadius: BorderRadius.circular(10),

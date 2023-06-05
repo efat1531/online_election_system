@@ -20,4 +20,8 @@ class AuthProvider with ChangeNotifier {
     );
     print(json.decode(response.body));
   }
+
+  String get userId {
+    return _userID;
+  }
 }

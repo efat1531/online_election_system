@@ -1,11 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:oes/providers/auth_provider.dart';
+import '../../providers/nid_databse_provider.dart';
+import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../loginScreen/login_screen.dart';
 import '../../models/user_description.dart';
+import './show_dialouge_nidVarification.dart';
+import '../../providers/user_provider.dart';
+import './showDialouge_DuplicateNID.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/register';
@@ -21,7 +29,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     'password': '',
   };
   final _passwordController = TextEditingController();
+  final _nidPinController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+
   DateTime _selectedDate = DateTime.parse('0000-00-00');
   void _showDateTimePicker() {
     showDatePicker(
@@ -150,6 +160,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               textInputAction: TextInputAction.next,
                               style: GoogleFonts.montserrat(
                                 fontSize: 16,
@@ -192,6 +204,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               textInputAction: TextInputAction.next,
                               style: GoogleFonts.montserrat(
                                 fontSize: 16,
@@ -267,6 +281,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               phone: _user.phone,
                             );
                           },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter NID Number';
+                            } else if (value.length != 10) {
+                              return 'Wrong NID Number. Length should be 10';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -311,6 +333,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               phone: newValue!,
                             );
                           },
+                          validator: (value) {
+                            if (value!.length != 11 || value.isEmpty) {
+                              return 'Incorrect Phone Number';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -354,6 +382,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               dateofbirth: _selectedDate,
                               phone: _user.phone,
                             );
+                            _authData['email'] = newValue;
+                          },
+                          validator: (value) {
+                            bool isValidEmail = EmailValidator.validate(value!);
+                            if (isValidEmail) {
+                              return null;
+                            } else {
+                              return 'Enter valid email';
+                            }
                           },
                         ),
                       ),
@@ -403,13 +440,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             }
                             return null;
                           },
+                          onSaved: (newValue) {
+                            _authData['password'] = newValue!;
+                          },
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       /**
-                       * This container is responsible for Retype password
+                       * This container is responsible for Confirm password
                        */
                       Container(
                         height: deviceSize.height * 0.07,
@@ -488,6 +528,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
+                              controller: _nidPinController,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Enter NID Pin';
@@ -550,9 +591,59 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                        * This is Submit Button for login Screen
                        */
                       GestureDetector(
-                        onTap: () {
-                          print(deviceSize.height);
-                          print(deviceSize.width);
+                        onTap: () async {
+                          /**
+                           * This for validate the form user will submit
+                           */
+                          final isValid = _formkey.currentState!.validate();
+                          if (!isValid) {
+                            return;
+                          }
+                          _formkey.currentState!.save();
+                          final varificationResult =
+                              Provider.of<NidListProvider>(context,
+                                      listen: false)
+                                  .varificationNID(
+                            _user.nid,
+                            _nidPinController.text,
+                            _user.dateofbirth,
+                          );
+                          if (varificationResult == false) {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  ShowDialougeNidVarification(),
+                            );
+                            return;
+                          }
+                          if (Provider.of<UserProvider>(context, listen: false)
+                                  .newUser(_user.nid) ==
+                              false) {
+                            try {
+                              await Provider.of<AuthProvider>(context,
+                                      listen: false)
+                                  .signup(_authData['email']!,
+                                      _authData['password']!);
+                              try {
+                                await Provider.of<UserProvider>(context,
+                                        listen: false)
+                                    .addUser(
+                                  _user,
+                                );
+                                Navigator.of(context).pushReplacementNamed(
+                                    LoginScreen.routeName);
+                              } catch (error) {
+                                print(error);
+                              }
+                            } catch (error) {
+                              print(error);
+                            }
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => ShowDialougeDuplicateNid(),
+                            );
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.all(14),

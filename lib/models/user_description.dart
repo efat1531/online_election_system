@@ -5,6 +5,7 @@ class UserModel {
   final String phone;
   final DateTime dateofbirth;
   final String nid;
+  final String userRole;
   UserModel({
     required this.nid,
     required this.firstName,
@@ -12,5 +13,6 @@ class UserModel {
     required this.email,
     required this.dateofbirth,
     required this.phone,
+    this.userRole="Citizen",
   });
 }

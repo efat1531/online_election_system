@@ -99,7 +99,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       body: _isLoading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: kMainColor,
+                backgroundColor: kF5F5F5,
+              ),
             )
           : SingleChildScrollView(
               /**

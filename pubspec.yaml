@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.18.1
   http: ^1.0.0
   email_validator: ^2.1.17
+  dropdown_button2: ^2.1.3
 
 dev_dependencies:
   flutter_test:

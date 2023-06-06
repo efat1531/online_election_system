@@ -6,7 +6,6 @@ import 'dart:convert';
 import '../models/httpException.dart';
 
 class AuthProvider with ChangeNotifier {
-  late String _token;
   late String _userID;
   /**
    * SignUp Function for User
@@ -25,7 +24,9 @@ class AuthProvider with ChangeNotifier {
           },
         ),
       );
+
       final responseData = jsonDecode(response.body);
+      _userID = responseData['localId'];
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
@@ -48,7 +49,9 @@ class AuthProvider with ChangeNotifier {
           },
         ),
       );
+
       final responseData = jsonDecode(response.body);
+      _userID = responseData['localId'];
       print(responseData);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);

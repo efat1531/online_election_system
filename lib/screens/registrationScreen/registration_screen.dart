@@ -77,9 +77,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     dateofbirth: DateTime.now(),
     phone: '',
     nid: '',
-    district: Districts.Dhaka,
-    division: Division.Dhaka,
-    gender: Gender.Other,
+    district: Districts.Dhaka.name,
+    division: Division.Dhaka.name,
+    gender: Gender.Other.name,
   );
 
   @override
@@ -600,8 +600,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ),
                                 ),
                                 /**
-                           * This container is for Date of Birth
-                           */
+                                * This container is for Date of Birth
+                                */
                                 Stack(
                                   children: [
                                     Container(
@@ -682,7 +682,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 if (Provider.of<UserProvider>(context,
                                             listen: false)
                                         .newUser(_user.nid) ==
-                                    false) {
+                                    true) {
                                   setState(() {
                                     _isLoading = true;
                                   });
@@ -703,11 +703,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         .signup(_authData['email']!,
                                             _authData['password']!);
                                     try {
+                                      String user_id =
+                                          Provider.of<AuthProvider>(context,
+                                                  listen: false)
+                                              .userId;
                                       await Provider.of<UserProvider>(context,
                                               listen: false)
-                                          .addUser(
-                                        _user,
-                                      );
+                                          .addUser(_user, user_id);
                                       setState(() {
                                         _isLoading = false;
                                       });
@@ -718,7 +720,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       showDialog(
                                         context: context,
                                         builder: (context) =>
-                                            SomethingWentWrongDialouge(),
+                                            const SomethingWentWrongDialouge(),
                                       );
                                     }
                                   } on HttpException catch (error) {
@@ -751,7 +753,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (context) =>
-                                          SomethingWentWrongDialouge(),
+                                          const SomethingWentWrongDialouge(),
                                     );
                                     setState(() {
                                       _isLoading = false;

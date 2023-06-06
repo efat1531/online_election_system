@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import '../models/user_description.dart';
-import '../models/enum_conversion.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class UserProvider with ChangeNotifier {
-  List<UserModel> _users = [];
+  Map<String, UserModel> _users = {};
 
   bool newUser(String nidNumber) {
-    var nidUser = _users.where((element) => element.nid == nidNumber);
-    return nidUser.isNotEmpty;
+    var nidUserList = _users.values.toList();
+    var nidUser = nidUserList.where((element) => element.nid == nidNumber);
+    if (nidUser.isEmpty) {
+      return true;
+    }
+    return false;
   }
 
-  Future<void> addUser(UserModel _receivedData) async {
-    final enumConvert = eNumConvert();
+  Future<void> addUser(UserModel _receivedData, String userId) async {
     final url = Uri.https(
         'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
         '/users.json');
@@ -29,14 +31,18 @@ class UserProvider with ChangeNotifier {
             'dateofBirth': _receivedData.dateofbirth.toIso8601String(),
             'nid': _receivedData.nid,
             'userRole': _receivedData.userRole,
-            'district': enumConvert.districtConversion(_receivedData.district),
-            'divison': enumConvert.divisionConversion(_receivedData.division),
-            'gender': enumConvert.genderConversion(_receivedData.gender),
+            'district': _receivedData.district,
+            'divison': _receivedData.division,
+            'gender': _receivedData.gender,
+            'user_id': userId,
           },
         ),
       );
+
       print(json.decode(response.body));
-      _users.add(_receivedData);
+      _users.addAll({
+        userId: _receivedData,
+      });
     } catch (error) {
       rethrow;
     }

@@ -26,6 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
   @override
+  initState() {
+    
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     _passwordFocusNode.dispose();
@@ -303,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (context) =>
-                                        SomethingWentWrongDialouge(),
+                                        const SomethingWentWrongDialouge(),
                                   );
                                 }
                               },

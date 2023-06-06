@@ -88,10 +88,10 @@ class NID {
   final String name;
   //final String imageURL;
   final DateTime dateOfBirth;
-  final Districts district;
-  final Division division;
+  final String district;
+  final String division;
   final String address;
-  final Gender gender;
+  final String gender;
 
   NID({
     required this.name,

@@ -1,5 +1,3 @@
-import '../models/nid_model.dart';
-
 class UserModel {
   final String firstName;
   final String lastName;
@@ -7,9 +5,9 @@ class UserModel {
   final String phone;
   final DateTime dateofbirth;
   final String nid;
-  final Districts district;
-  final Division division;
-  final Gender gender;
+  final String district;
+  final String division;
+  final String gender;
   final String userRole;
   UserModel({
     required this.nid,

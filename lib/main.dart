@@ -8,6 +8,7 @@ import './providers/auth_provider.dart';
 import './screens/registrationScreen/registration_screen.dart';
 import './providers/user_provider.dart';
 import './screens/nidAddScreen/nidaddScreen.dart';
+import './screens/homeScreen/homeScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName: (context) => LoginScreen(),
           RegistrationScreen.routeName: (context) => RegistrationScreen(),
           NidAddScreen.routeName: (context) => NidAddScreen(),
+          HomeScreen.routeName: (context) => HomeScreen(),
         },
       ),
     );

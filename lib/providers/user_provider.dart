@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../models/user_description.dart';
 import 'dart:convert';
@@ -54,6 +56,25 @@ class UserProvider with ChangeNotifier {
       final response = await http.get(url);
       if (jsonDecode(response.body) == null) return;
       print(jsonDecode(response.body));
+      final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
+      Map<String, UserModel> loadedData = {};
+      extractedData.forEach((key, value) {
+        loadedData.addAll({
+          value['user_id']: UserModel(
+            nid: value['nid'],
+            firstName: value['firstName'],
+            lastName: value['lastName'],
+            email: value['email'],
+            dateofbirth: DateTime.parse(value['dateofBirth']),
+            phone: value['phone'],
+            district: value['district'],
+            division: value['divison'],
+            gender: value['gender'],
+          ),
+        });
+      });
+      _users = loadedData;
+      print(_users);
     } catch (error) {
       rethrow;
     }

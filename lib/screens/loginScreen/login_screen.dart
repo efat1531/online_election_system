@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import './error_dialouge.dart';
 import './showDialouge_error.dart';
 import '../registrationScreen/registration_screen.dart';
+import '../homeScreen/homeScreen.dart';
 import '../../providers/user_provider.dart';
 import '../../constants/color_constants.dart';
 import '../../providers/auth_provider.dart';
@@ -275,6 +276,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      HomeScreen.routeName, (route) => false);
                                 } on HttpException catch (error) {
                                   setState(() {
                                     _isLoading = false;

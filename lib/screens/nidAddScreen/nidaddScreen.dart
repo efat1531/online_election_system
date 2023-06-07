@@ -25,6 +25,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
   String? selectedDisValue, selectedGenValue, selectedDivValue;
 
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   NID _userNID = NID(
     name: '',
@@ -124,7 +125,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.all(20),
                     ),
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.name,
                     enableSuggestions: false,
                     autocorrect: false,
                     validator: (value) {
@@ -332,7 +333,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.all(20),
                     ),
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.streetAddress,
                     enableSuggestions: false,
                     autocorrect: false,
                     validator: (value) {
@@ -430,8 +431,16 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         Provider.of<NidListProvider>(context, listen: false)
                             .checkNid(_userNID.nidNumber);
                     if (newNid == true) {
+                      setState(() {
+                        _isLoading = true;
+                      });
                       await Provider.of<NidListProvider>(context, listen: false)
                           .addNId(_userNID);
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      Navigator.of(context)
+                          .pushReplacementNamed(NidAddScreen.routeName);
                     } else {
                       String errorMessage =
                           'This National ID card is already register to the system.';

@@ -20,7 +20,7 @@ class UserProvider with ChangeNotifier {
         'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
         '/users.json');
     try {
-      final response = await http.post(
+      await http.post(
         url,
         body: json.encode(
           {
@@ -38,11 +38,22 @@ class UserProvider with ChangeNotifier {
           },
         ),
       );
-
-      print(json.decode(response.body));
       _users.addAll({
         userId: _receivedData,
       });
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> fetchUsersData() async {
+    final url = Uri.https(
+        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/users.json');
+    try {
+      final response = await http.get(url);
+      if (jsonDecode(response.body) == null) return;
+      print(jsonDecode(response.body));
     } catch (error) {
       rethrow;
     }

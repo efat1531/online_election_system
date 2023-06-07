@@ -7,10 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import './error_dialouge.dart';
 import './showDialouge_error.dart';
-import '../../constants/color_constants.dart';
 import '../registrationScreen/registration_screen.dart';
+import '../../providers/user_provider.dart';
+import '../../constants/color_constants.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/httpException.dart';
+import '../../providers/nid_databse_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/login';
@@ -27,7 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   initState() {
-    
+    Future.delayed(Duration.zero).then(
+      (value) {
+        Provider.of<NidListProvider>(context, listen: false).fetchNidData();
+        Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+      },
+    );
     super.initState();
   }
 

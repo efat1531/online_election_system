@@ -103,7 +103,7 @@ class CustomDropdownButton2 extends StatelessWidget {
         onChanged: onChanged,
         selectedItemBuilder: selectedItemBuilder,
         buttonStyleData: ButtonStyleData(
-          height: buttonHeight ?? MediaQuery.of(context).size.height*0.07,
+          height: buttonHeight ?? MediaQuery.of(context).size.height * 0.07,
           width: buttonWidth ?? double.infinity,
           padding: buttonPadding ?? const EdgeInsets.only(left: 14, right: 14),
           decoration: buttonDecoration ??

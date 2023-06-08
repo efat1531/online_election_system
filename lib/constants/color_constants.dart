@@ -19,3 +19,4 @@ const kF8F8EE = Color(0xFFF8F8EE);
 const kFAF9F9 = Color(0xFFFAF9F9);
 const kFFFBF0 = Color(0xFFFFFBF0);
 const kFFFFFF = Color(0xFFFFFFFF);
+const k163343 = Color(0xFF163343);

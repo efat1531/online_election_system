@@ -9,6 +9,7 @@ import './screens/registrationScreen/registration_screen.dart';
 import './providers/user_provider.dart';
 import './screens/nidAddScreen/nidaddScreen.dart';
 import './screens/homeScreen/homeScreen.dart';
+import './providers/electionListProvider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+      
+        ChangeNotifierProvider(
+          create: (context) => ElectionList(),
+        ),
         ChangeNotifierProvider(
           create: (context) => NidListProvider(),
         ),

@@ -53,7 +53,6 @@ class UserProvider with ChangeNotifier {
     try {
       final response = await http.get(url);
       if (jsonDecode(response.body) == null) return;
-      print(jsonDecode(response.body));
       final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
       Map<String, UserModel> loadedData = {};
       extractedData.forEach((key, value) {
@@ -74,6 +73,22 @@ class UserProvider with ChangeNotifier {
       _users = loadedData;
     } catch (error) {
       rethrow;
+    }
+  }
+
+  UserModel findUserByUserID(String userId) {
+    MapEntry entry =
+        _users.entries.firstWhere((element) => element.key == userId);
+    return entry.value;
+  }
+
+  int voterCount(String area) {
+    if (area == 'All') {
+      return _users.length;
+    } else {
+      final howMany = _users.values.where(
+          (element) => element.district.toLowerCase() == area.toLowerCase());
+      return howMany.length;
     }
   }
 }

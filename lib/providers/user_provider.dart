@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import '../models/user_description.dart';
 import 'dart:convert';
@@ -74,7 +72,6 @@ class UserProvider with ChangeNotifier {
         });
       });
       _users = loadedData;
-      print(_users);
     } catch (error) {
       rethrow;
     }

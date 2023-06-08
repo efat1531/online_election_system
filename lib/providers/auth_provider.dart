@@ -51,10 +51,10 @@ class AuthProvider with ChangeNotifier {
       );
 
       final responseData = jsonDecode(response.body);
-      _userID = responseData['localId'];
-      print(responseData);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
+      } else {
+        _userID = responseData['localId'];
       }
     } catch (error) {
       rethrow;

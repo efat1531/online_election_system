@@ -10,6 +10,7 @@ import './providers/user_provider.dart';
 import './screens/nidAddScreen/nidaddScreen.dart';
 import './screens/homeScreen/homeScreen.dart';
 import './providers/electionListProvider.dart';
+import './screens/voteDetails/voteDetailsScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-      
         ChangeNotifierProvider(
           create: (context) => ElectionList(),
         ),
@@ -45,10 +45,38 @@ class MyApp extends StatelessWidget {
         ),
         home: Dummy(),
         routes: {
+          /**
+           * Login Screen Route
+           */
           LoginScreen.routeName: (context) => LoginScreen(),
+          /**
+           * Registration Screen Route
+           */
           RegistrationScreen.routeName: (context) => RegistrationScreen(),
+          /**
+           * NID Add Screen Route (Only for Admin of the app)
+           */
           NidAddScreen.routeName: (context) => NidAddScreen(),
+          /**
+           * Home Screen Route
+           */
           HomeScreen.routeName: (context) => HomeScreen(),
+          /**
+           * Vote Detail Screen Route
+           */
+          VoteDetailsScreen.routeName: (context) => VoteDetailsScreen(),
+        },
+        /**
+         * If any route is not properly loaded.
+         */
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(builder: (context) => LoginScreen());
+        },
+        /**
+         * If any route is missing then this will bring to Login
+         */
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(builder: (context) => LoginScreen());
         },
       ),
     );

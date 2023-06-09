@@ -5,10 +5,18 @@ import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/election_model.dart';
 import '../../providers/user_provider.dart';
+import '../../screens/voteDetails/voteDetailsScreen.dart';
 
 class FinishedElectionListView extends StatelessWidget {
   final Election electionModel;
   const FinishedElectionListView(this.electionModel, {super.key});
+
+  Election sortedElectionModel(Election election) {
+    electionModel.candidateList.sort(
+      (a, b) => a.voteCount.compareTo(b.voteCount),
+    );
+    return electionModel;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,8 @@ class FinishedElectionListView extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print(electionModel.id);
+        Navigator.of(context).pushNamed(VoteDetailsScreen.routeName,
+            arguments: sortedElectionModel(electionModel));
       },
       child: SizedBox(
         height: 130,

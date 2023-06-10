@@ -25,8 +25,8 @@ class ElectionList with ChangeNotifier {
         ),
       ],
       validFor: 'Gazipur',
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
+      startTime: DateTime.parse("2023-06-10 21:31:00"),
+      endTime: DateTime.parse("2023-06-10 21:32:00"),
     ),
     Election(
       id: '1235',
@@ -109,4 +109,6 @@ class ElectionList with ChangeNotifier {
   Election fetchElectionByID(String eID) {
     return _electionList.firstWhere((element) => element.id == eID);
   }
+
+  
 }

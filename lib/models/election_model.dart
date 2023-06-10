@@ -7,7 +7,7 @@ class Election {
   final List<Candidate> candidateList;
   final DateTime startTime;
   final DateTime endTime;
-  List<String> voterUserId = [];
+  List<String> voterUserId = ['home'];
   Election({
     required this.id,
     required this.title,

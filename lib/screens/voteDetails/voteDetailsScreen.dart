@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/models/candidateModel.dart';
+import 'package:oes/screens/voteDetails/candidateList.dart';
 import '../../constants/color_constants.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
@@ -13,11 +15,13 @@ class VoteDetailsScreen extends StatefulWidget {
 }
 
 class _VoteDetailsScreenState extends State<VoteDetailsScreen> {
+  late Candidate _selectedCandidate;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final election = ModalRoute.of(context)?.settings.arguments as Election;
@@ -26,9 +30,18 @@ class _VoteDetailsScreenState extends State<VoteDetailsScreen> {
     double percentageCalculator(int casted) {
       return ((casted.toDouble() * 100.00) / (totalVotets.toDouble()));
     }
+
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kF5F5F5,
+      bottomNavigationBar: Container(
+        height: 40,
+        width: deviceSize.width - 100,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
       body: Column(
         children: [
           Container(
@@ -132,7 +145,7 @@ class _VoteDetailsScreenState extends State<VoteDetailsScreen> {
                           ),
                         ),
                         Text(
-                          'Cast Percentage : ${percentageCalculator(election.voterUserId.length)}',
+                          'Cast Percentage : ${percentageCalculator(election.voterUserId.length)}%',
                           style: GoogleFonts.openSansCondensed(
                             color: kF8F8EE,
                             fontSize: 15,
@@ -148,8 +161,14 @@ class _VoteDetailsScreenState extends State<VoteDetailsScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (context, index) =>
-                  Text('Candidate Name: ${election.candidateList[index].name}'),
+              itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedCandidate = election.candidateList[index];
+                    });
+                  },
+                  child: CandidateList(
+                      election.candidateList[index], totalVotets)),
               itemCount: election.candidateList.length,
             ),
           ),

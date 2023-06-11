@@ -2,7 +2,7 @@ class Candidate {
   String id;
   String party;
   String name;
-  int voteCount = 1;
+  int voteCount = 0;
   Candidate({
     required this.id,
     required this.name,

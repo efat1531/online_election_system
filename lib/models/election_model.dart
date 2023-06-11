@@ -7,7 +7,7 @@ class Election {
   final List<Candidate> candidateList;
   final DateTime startTime;
   final DateTime endTime;
-  List<String> voterUserId = ['home'];
+  List<String> voterUserId = [];
   Election({
     required this.id,
     required this.title,
@@ -20,4 +20,11 @@ class Election {
   void addVoterUserID(String userID) {
     voterUserId.add(userID);
   }
+
+  bool canVote(String userID) {
+    final list = voterUserId.where((element) => element == userID);
+    if (list.isEmpty) return true;
+    return false;
+  }
+
 }

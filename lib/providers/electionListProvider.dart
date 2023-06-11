@@ -25,8 +25,8 @@ class ElectionList with ChangeNotifier {
         ),
       ],
       validFor: 'Gazipur',
-      startTime: DateTime.parse("2023-06-10 21:31:00"),
-      endTime: DateTime.parse("2023-06-10 21:32:00"),
+      startTime: DateTime.parse("2023-06-11 14:10:00"),
+      endTime: DateTime.parse("2023-06-11 14:59:00"),
     ),
     Election(
       id: '1235',
@@ -110,5 +110,20 @@ class ElectionList with ChangeNotifier {
     return _electionList.firstWhere((element) => element.id == eID);
   }
 
-  
+  List<Election> liveElectionList() {
+    final list = _electionList
+        .where(
+          (element) => ((element.startTime.compareTo(DateTime.now()) <= 0) &&
+              element.endTime.compareTo(DateTime.now()) >= 0),
+        )
+        .toList();
+    return list;
+  }
+
+  List<Election> finishedElectionList() {
+    final list = _electionList
+        .where((element) => element.endTime.compareTo(DateTime.now()) < 0)
+        .toList();
+    return list;
+  }
 }

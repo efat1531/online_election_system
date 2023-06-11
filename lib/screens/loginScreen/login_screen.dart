@@ -32,8 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
   initState() {
     Future.delayed(Duration.zero).then(
       (value) {
-        Provider.of<NidListProvider>(context, listen: false).fetchNidData();
-        Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+        try {
+          Provider.of<NidListProvider>(context, listen: false).fetchNidData();
+          Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+        } catch (error) {
+        }
       },
     );
     super.initState();

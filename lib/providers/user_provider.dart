@@ -72,6 +72,7 @@ class UserProvider with ChangeNotifier {
       });
       _users = loadedData;
     } catch (error) {
+      print(error);
       rethrow;
     }
   }

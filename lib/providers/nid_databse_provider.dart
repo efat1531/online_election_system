@@ -120,6 +120,7 @@ class NidListProvider with ChangeNotifier {
       });
       _nidList = loadedNid;
     } catch (error) {
+      print(error);
       rethrow;
     }
   }

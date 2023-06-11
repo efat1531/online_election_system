@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/election_model.dart';
 import '../../providers/user_provider.dart';
-import '../../screens/voteDetails/voteDetailsScreen.dart';
+import '../voteDetails/finishedVoteDetailScreen.dart';
 
 class FinishedElectionListView extends StatelessWidget {
   final Election electionModel;
@@ -13,7 +13,7 @@ class FinishedElectionListView extends StatelessWidget {
 
   Election sortedElectionModel(Election election) {
     electionModel.candidateList.sort(
-      (a, b) => a.voteCount.compareTo(b.voteCount),
+      (a, b) => b.voteCount.compareTo(a.voteCount),
     );
     return electionModel;
   }
@@ -29,7 +29,7 @@ class FinishedElectionListView extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(VoteDetailsScreen.routeName,
+        Navigator.of(context).pushNamed(FinishedVoteDetailsScreen.routeName,
             arguments: sortedElectionModel(electionModel));
       },
       child: SizedBox(

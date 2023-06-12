@@ -25,8 +25,8 @@ class ElectionList with ChangeNotifier {
         ),
       ],
       validFor: 'Gazipur',
-      startTime: DateTime.parse("2023-06-11 14:10:00"),
-      endTime: DateTime.parse("2023-06-11 14:59:00"),
+      startTime: DateTime.parse("2023-06-12 09:49:00"),
+      endTime: DateTime.parse("2023-06-12 10:59:00"),
     ),
     Election(
       id: '1235',
@@ -79,6 +79,54 @@ class ElectionList with ChangeNotifier {
     Election(
       id: '1237',
       title: 'Bangladesh General Election ',
+      candidateList: [
+        Candidate(
+          id: '123',
+          name: 'Mirja Fakrul',
+          party: 'BNP',
+        ),
+        Candidate(
+          id: '124',
+          name: 'obaidul Kader',
+          party: 'Awami Leauge',
+        ),
+        Candidate(
+          id: '125',
+          name: 'Rubaya Seikh',
+          party: 'Jamayet',
+        ),
+      ],
+      validFor: 'All',
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+    ),
+    Election(
+      id: '1235',
+      title: 'Bangladesh General Election',
+      candidateList: [
+        Candidate(
+          id: '123',
+          name: 'Mirja Fakrul',
+          party: 'BNP',
+        ),
+        Candidate(
+          id: '124',
+          name: 'obaidul Kader',
+          party: 'Awami Leauge',
+        ),
+        Candidate(
+          id: '125',
+          name: 'Rubaya Seikh',
+          party: 'Jamayet',
+        ),
+      ],
+      validFor: 'All',
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+    ),
+    Election(
+      id: '1235',
+      title: 'Bangladesh General Election',
       candidateList: [
         Candidate(
           id: '123',

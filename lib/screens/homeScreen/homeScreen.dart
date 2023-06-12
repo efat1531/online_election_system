@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/screens/homeScreen/liveElectionListView.dart';
 import '../../constants/color_constants.dart';
 import '../../providers/user_provider.dart';
 import 'finishedElectionListView.dart';
@@ -39,12 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
          */
         body: Container(
           padding: const EdgeInsets.only(
-            top: 35,
+            top: 20,
             left: 30,
             right: 30,
+            bottom: 10,
           ),
           color: kF5F5F5,
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               /**
                * First row for the Drawer Button, Text and Live Election
@@ -64,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Hi @${user.firstName}',
                     style: GoogleFonts.openSans(
                       fontWeight: FontWeight.bold,
-                      fontSize: 13,
+                      fontSize: 14,
                       color: Colors.black,
                     ),
                   ),
@@ -118,11 +121,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(top: 10),
+                itemBuilder: (context, index) =>
+                    LiveElectionListView(_liveElectionList[index]),
+                itemCount: _liveElectionList.length,
+              ),
               /**
                * Finished Election Text
                */
               Container(
-                color: Colors.red,
+                //color: Colors.red,
                 width: deviceSize.width,
                 height: 30,
                 child: Text(
@@ -137,13 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
               /**
                * List of Elections
                */
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.only(top: 10),
-                  itemBuilder: (context, index) =>
-                      FinishedElectionListView(_finishedelectionList[index]),
-                  itemCount: _finishedelectionList.length,
-                ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(top: 10),
+                itemBuilder: (context, index) =>
+                    FinishedElectionListView(_finishedelectionList[index]),
+                itemCount: _finishedelectionList.length,
               )
               // Text('${deviceSize.height}'),
               // Text('${deviceSize.width}'),

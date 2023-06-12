@@ -27,19 +27,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   final _passwordFocusNode = FocusNode();
   bool _isLoading = false;
+  bool _isInit = true;
 
   @override
-  initState() {
-    Future.delayed(Duration.zero).then(
-      (value) {
-        try {
-          Provider.of<NidListProvider>(context, listen: false).fetchNidData();
-          Provider.of<UserProvider>(context, listen: false).fetchUsersData();
-        } catch (error) {
-        }
-      },
-    );
-    super.initState();
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if (_isInit) {
+      try {
+        Provider.of<NidListProvider>(context, listen: false).fetchNidData();
+        Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+      } catch (error) {
+        showDialog(
+          context: context,
+          builder: (context) => SomethingWentWrongDialouge(),
+        );
+      }
+      _isInit = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override

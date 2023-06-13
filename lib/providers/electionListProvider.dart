@@ -25,8 +25,8 @@ class ElectionList with ChangeNotifier {
         ),
       ],
       validFor: 'Gazipur',
-      startTime: DateTime.parse("2023-06-12 09:49:00"),
-      endTime: DateTime.parse("2023-06-12 10:59:00"),
+      startTime: DateTime.parse("2023-06-13 12:18:00"),
+      endTime: DateTime.parse("2023-06-13 12:48:00"),
     ),
     Election(
       id: '1235',

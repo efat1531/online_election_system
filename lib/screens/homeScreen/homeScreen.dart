@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/models/election_model.dart';
 import 'package:oes/screens/homeScreen/liveElectionListView.dart';
 import '../../constants/color_constants.dart';
 import '../../providers/user_provider.dart';
@@ -23,16 +24,22 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = Provider.of<UserProvider>(context, listen: false)
         .findUserByUserID(userId);
     final deviceSize = MediaQuery.of(context).size;
-    final _finishedelectionList =
+    List<Election> _finishedelectionList =
         Provider.of<ElectionList>(context).finishedElectionList();
-    final _liveElectionList =
+    List<Election> _liveElectionList =
         Provider.of<ElectionList>(context).liveElectionList();
+
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(
           const Duration(seconds: 2),
         );
-        setState(() {});
+        setState(() {
+          _finishedelectionList =
+              Provider.of<ElectionList>(context,listen: false).finishedElectionList();
+          _liveElectionList =
+              Provider.of<ElectionList>(context,listen: false).liveElectionList();
+        });
       },
       child: Scaffold(
         /**

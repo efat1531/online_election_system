@@ -25,6 +25,12 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
       return percentage;
     }
 
+    int secondsRemaining() {
+      int remaining =
+          widget._election.endTime.difference(DateTime.now()).inSeconds;
+      return remaining;
+    }
+
     bool hasTimerStopped = false;
     return GestureDetector(
       onTap: () {
@@ -123,23 +129,6 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                   ],
                 ),
               ),
-              Container(
-                width: 60.0,
-                padding: const EdgeInsets.only(top: 3.0, right: 4.0),
-                child: CountDownTimer(
-                  secondsRemaining: 600,
-                  whenTimeExpires: () {
-                    setState(() {
-                      hasTimerStopped = true;
-                    });
-                  },
-                  countDownTimerStyle: GoogleFonts.openSansCondensed(
-                    color: k929090,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
             ],
           ),
         ),

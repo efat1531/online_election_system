@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oes/models/election_model.dart';
 import 'package:oes/screens/homeScreen/liveElectionListView.dart';
+import 'package:oes/widgets/drawer.dart';
 import '../../constants/color_constants.dart';
 import '../../providers/user_provider.dart';
 import 'finishedElectionListView.dart';
@@ -11,7 +12,6 @@ import '../../providers/electionListProvider.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = '/home';
-  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<ElectionList>(context).finishedElectionList();
     List<Election> _liveElectionList =
         Provider.of<ElectionList>(context).liveElectionList();
+    final GlobalKey<ScaffoldState> _globalkey = GlobalKey();
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -36,12 +37,23 @@ class _HomeScreenState extends State<HomeScreen> {
         );
         setState(() {
           _finishedelectionList =
-              Provider.of<ElectionList>(context,listen: false).finishedElectionList();
-          _liveElectionList =
-              Provider.of<ElectionList>(context,listen: false).liveElectionList();
+              Provider.of<ElectionList>(context, listen: false)
+                  .finishedElectionList();
+          _liveElectionList = Provider.of<ElectionList>(context, listen: false)
+              .liveElectionList();
         });
       },
       child: Scaffold(
+        /**
+         * Scaffold Key
+         */
+        key: _globalkey,
+        /**
+         * Code for drawer to open
+         * 
+         */
+        drawerEnableOpenDragGesture: false,
+        drawer: MainDrawer(),
         /**
          * This container is for Padding around the edges
          */
@@ -62,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _globalkey.currentState?.openDrawer();
+                     // print('Here I am');
+                    },
                     icon: const Icon(
                       Icons.menu_rounded,
                       color: Colors.black,

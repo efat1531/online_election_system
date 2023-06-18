@@ -18,14 +18,31 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 300,
-            width: deviceSize.width - 70,
+            height: 350,
+            //width: deviceSize.width - 70,
+            color: Colors.red,
             child: Stack(
               children: [
-                SvgPicture.asset(
-                  'assets/svg/drawerBG.svg',
-                  height: 300,
-                  width: deviceSize.width - 70,
+                Positioned(
+                  top: 0,
+                  child: SvgPicture.asset(
+                    'assets/svg/drawerBG-cropped.svg',
+                    height: 270,
+                    width: deviceSize.width - 70,
+                    //fit: BoxFit.fitWidth,
+                  ),
+                ),
+                Positioned(
+                  right: 55,
+                  top: 110,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFe0f2f1),
+                    ),
+                  ),
                 ),
               ],
             ),

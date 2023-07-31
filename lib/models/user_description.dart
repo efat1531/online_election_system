@@ -9,6 +9,7 @@ class UserModel {
   final String division;
   final String gender;
   final String userRole;
+  final String electionArea;
   UserModel({
     required this.nid,
     required this.firstName,
@@ -20,5 +21,6 @@ class UserModel {
     required this.division,
     required this.gender,
     this.userRole = "Citizen",
+    required this.electionArea,
   });
 }

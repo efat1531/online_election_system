@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/nid_model.dart';
 import './error_dialouge.dart';
+import '../../constants/constants.dart';
 
 class NidAddScreen extends StatefulWidget {
   static String routeName = '/admin/nid_registration';
@@ -19,10 +20,10 @@ class NidAddScreen extends StatefulWidget {
 }
 
 class _NidAddScreenState extends State<NidAddScreen> {
-  List<String> disValues = Districts.values.map((e) => e.name).toList();
-  List<String> divValues = Division.values.map((e) => e.name).toList();
-  List<String> genValues = Gender.values.map((e) => e.name).toList();
-  String? selectedDisValue, selectedGenValue, selectedDivValue;
+  String? selectedDisValue,
+      selectedGenValue,
+      selectedDivValue,
+      selectedAreaValue;
 
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -33,9 +34,10 @@ class _NidAddScreenState extends State<NidAddScreen> {
     nidPin: '',
     dateOfBirth: DateTime(1990, 12, 11),
     address: '',
-    district: Districts.Gazipur.name,
-    division: Division.Dhaka.name,
-    gender: Gender.Female.name,
+    district: "",
+    division: "",
+    gender: "",
+    electionArea: '',
   );
   /**
    * Date Time Fucntion
@@ -83,7 +85,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Container(
                         height: 50,
@@ -104,7 +106,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Full Name Input
@@ -151,12 +153,13 @@ class _NidAddScreenState extends State<NidAddScreen> {
                               district: _userNID.district,
                               division: _userNID.division,
                               gender: _userNID.gender,
+                              electionArea: _userNID.electionArea,
                             );
                           },
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Nid Number
@@ -206,12 +209,13 @@ class _NidAddScreenState extends State<NidAddScreen> {
                               district: _userNID.district,
                               division: _userNID.division,
                               gender: _userNID.gender,
+                              electionArea: _userNID.electionArea,
                             );
                           },
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * NID Pin
@@ -261,12 +265,13 @@ class _NidAddScreenState extends State<NidAddScreen> {
                               district: _userNID.district,
                               division: _userNID.division,
                               gender: _userNID.gender,
+                              electionArea: _userNID.electionArea,
                             );
                           },
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Date Time Picker
@@ -314,7 +319,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Address Picker
@@ -361,12 +366,13 @@ class _NidAddScreenState extends State<NidAddScreen> {
                               district: _userNID.district,
                               division: _userNID.division,
                               gender: _userNID.gender,
+                              electionArea: _userNID.electionArea,
                             );
                           },
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * District Picker
@@ -382,7 +388,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Divison
@@ -398,7 +404,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       /**
                  * Gender
@@ -414,7 +420,23 @@ class _NidAddScreenState extends State<NidAddScreen> {
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
+                      ),
+                      /**
+                       * Area Selection
+                       */
+                      CustomDropdownButton2(
+                        hint: 'Select Gender',
+                        dropdownItems: voteArea,
+                        value: selectedAreaValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedAreaValue = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
                       ),
                       GestureDetector(
                         onTap: () async {
@@ -436,6 +458,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                             district: selectedDisValue!,
                             division: selectedDivValue!,
                             gender: selectedGenValue!,
+                            electionArea: '',
                           );
                           bool newNid = Provider.of<NidListProvider>(context,
                                   listen: false)

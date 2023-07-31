@@ -35,6 +35,7 @@ class UserProvider with ChangeNotifier {
             'divison': _receivedData.division,
             'gender': _receivedData.gender,
             'user_id': userId,
+            'election_area':_receivedData.electionArea,
           },
         ),
       );
@@ -67,6 +68,7 @@ class UserProvider with ChangeNotifier {
             district: value['district'],
             division: value['divison'],
             gender: value['gender'],
+            electionArea: value['electionArea'],
           ),
         });
       });

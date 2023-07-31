@@ -12,16 +12,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'Gazipur',
@@ -36,16 +39,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'All',
@@ -60,16 +66,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'All',
@@ -84,16 +93,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'All',
@@ -108,16 +120,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'All',
@@ -132,16 +147,19 @@ class ElectionList with ChangeNotifier {
           id: '123',
           name: 'Mirja Fakrul',
           party: 'BNP',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
           party: 'Awami Leauge',
+          area: 'Dhaka 01'
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
           party: 'Jamayet',
+          area: 'Dhaka 01'
         ),
       ],
       validFor: 'All',

@@ -16,7 +16,6 @@ import '../../providers/nid_databse_provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/user_description.dart';
 import '../../providers/user_provider.dart';
-import '../../models/nid_model.dart';
 import '../../models/httpException.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -62,6 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         district: _user.district,
         division: _user.division,
         gender: _user.gender,
+        electionArea: _user.electionArea,
       );
     });
   }
@@ -77,9 +77,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     dateofbirth: DateTime.now(),
     phone: '',
     nid: '',
-    district: Districts.Dhaka.name,
-    division: Division.Dhaka.name,
-    gender: Gender.Other.name,
+    district: '',
+    division: '',
+    gender: '',
+    electionArea: '',
   );
 
   @override
@@ -224,6 +225,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         district: _user.district,
                                         division: _user.division,
                                         gender: _user.gender,
+                                        electionArea: _user.electionArea,
                                       );
                                     },
                                     validator: (value) {
@@ -277,6 +279,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         district: _user.district,
                                         division: _user.division,
                                         gender: _user.gender,
+                                        electionArea: _user.electionArea,
                                       );
                                     },
                                     validator: (value) {
@@ -332,6 +335,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     district: _user.district,
                                     division: _user.division,
                                     gender: _user.gender,
+                                    electionArea: _user.electionArea,
                                   );
                                 },
                                 validator: (value) {
@@ -388,6 +392,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     district: _user.district,
                                     division: _user.division,
                                     gender: _user.gender,
+                                    electionArea: _user.electionArea,
                                   );
                                 },
                                 validator: (value) {
@@ -441,6 +446,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     district: _user.district,
                                     division: _user.division,
                                     gender: _user.gender,
+                                    electionArea: _user.electionArea,
                                   );
                                   _authData['email'] = newValue;
                                 },
@@ -696,6 +702,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     district: varificationResult.district,
                                     division: varificationResult.division,
                                     gender: varificationResult.gender,
+                                    electionArea:
+                                        varificationResult.electionArea,
                                   );
                                   try {
                                     await Provider.of<AuthProvider>(context,

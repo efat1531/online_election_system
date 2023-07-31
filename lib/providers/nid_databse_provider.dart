@@ -59,9 +59,10 @@ class NidListProvider with ChangeNotifier {
       nidPin: '',
       dateOfBirth: DateTime(1990, 12, 11),
       address: '',
-      district: Districts.Gazipur.name,
-      division: Division.Dhaka.name,
-      gender: Gender.Female.name,
+      district: "",
+      division: "",
+      gender: "",
+      electionArea: '',
     );
   }
 
@@ -87,6 +88,7 @@ class NidListProvider with ChangeNotifier {
           'district': _receivedNid.district,
           'division': _receivedNid.division,
           'gender': _receivedNid.gender,
+          'electionArea':_receivedNid.electionArea,
         }),
       );
       _nidList.add(_receivedNid);
@@ -115,6 +117,7 @@ class NidListProvider with ChangeNotifier {
             district: value['district'],
             division: value['division'],
             gender: value['gender'],
+            electionArea: value['electionArea'],
           ),
         );
       });

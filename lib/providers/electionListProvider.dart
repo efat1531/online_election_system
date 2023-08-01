@@ -29,6 +29,13 @@ class ElectionList with ChangeNotifier {
           party: 'Jamayet',
           area: 'Dhaka 01',
         ),
+        Candidate(
+          id: '1234',
+          name: 'Fayzur Rahman',
+          party: 'BNP',
+          area: 'Dhaka 02',
+          candidateNID: '1234567892',
+        ),
       ],
       validFor: 'All',
       startTime: DateTime.now(),
@@ -153,6 +160,43 @@ class ElectionList with ChangeNotifier {
       validFor: 'All',
       startTime: DateTime.now(),
       endTime: DateTime.now(),
+    ),
+    Election(
+      id: '1235',
+      title: 'Bangladesh General Election',
+      candidateList: [
+        Candidate(
+          id: '123',
+          name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
+          party: 'BNP',
+          area: 'Dhaka 01',
+        ),
+        Candidate(
+          id: '124',
+          name: 'obaidul Kader',
+          candidateNID: '1234567898',
+          party: 'Awami Leauge',
+          area: 'Dhaka 01',
+        ),
+        Candidate(
+          id: '125',
+          name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
+          party: 'Jamayet',
+          area: 'Dhaka 01',
+        ),
+        Candidate(
+          id: '1234',
+          name: 'Fayzur Rahman',
+          party: 'BNP',
+          area: 'Dhaka 02',
+          candidateNID: '1234567892',
+        ),
+      ],
+      validFor: 'All',
+      startTime: DateTime.parse('2023-08-01 10:43:00'),
+      endTime: DateTime.parse('2023-08-01 12:48:00'),
     ),
   ];
 

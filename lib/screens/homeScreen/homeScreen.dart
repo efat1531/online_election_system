@@ -20,28 +20,33 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final userId = Provider.of<AuthProvider>(context).userId;
+    final userId = Provider.of<AuthProvider>(context, listen: false).userId;
     final user = Provider.of<UserProvider>(context, listen: false)
         .findUserByUserID(userId);
     final deviceSize = MediaQuery.of(context).size;
     List<Election> _finishedelectionList =
-        Provider.of<ElectionList>(context).finishedElectionList();
+        Provider.of<ElectionList>(context, listen: false)
+            .finishedElectionList();
     List<Election> _liveElectionList =
-        Provider.of<ElectionList>(context).liveElectionList();
+        Provider.of<ElectionList>(context, listen: false).liveElectionList();
     final GlobalKey<ScaffoldState> _globalkey = GlobalKey();
+
+    void reload() {
+      print('Relaod');
+      setState(() {
+        _finishedelectionList =
+            Provider.of<ElectionList>(context, listen: false).finishedElectionList();
+        _liveElectionList =
+            Provider.of<ElectionList>(context, listen: false).liveElectionList();
+      });
+    }
 
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(
           const Duration(seconds: 2),
         );
-        setState(() {
-          _finishedelectionList =
-              Provider.of<ElectionList>(context, listen: false)
-                  .finishedElectionList();
-          _liveElectionList = Provider.of<ElectionList>(context, listen: false)
-              .liveElectionList();
-        });
+        reload();
       },
       child: Scaffold(
         /**
@@ -76,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     onPressed: () {
                       _globalkey.currentState?.openDrawer();
-                     // print('Here I am');
+                      // print('Here I am');
                     },
                     icon: const Icon(
                       Icons.menu_rounded,
@@ -148,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(top: 10),
                 itemBuilder: (context, index) =>
-                    LiveElectionListView(_liveElectionList[index]),
+                    LiveElectionListView(_liveElectionList[index], reload),
                 itemCount: _liveElectionList.length,
               ),
               /**

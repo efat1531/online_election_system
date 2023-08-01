@@ -12,6 +12,8 @@ import '../../constants/constants.dart';
 class FinishedVoteDetailsScreen extends StatelessWidget {
   static String routeName = '/homescreen/FinishedElectionViewByID';
 
+  const FinishedVoteDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final election = ModalRoute.of(context)?.settings.arguments as Election;
@@ -188,8 +190,13 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 60,
-                      margin: const EdgeInsets.all(10),
+                      height: 40,
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                        bottom: 8,
+                        left: 20,
+                        right: 20,
+                      ),
                       child: Text(
                         voteArea[index],
                         style: GoogleFonts.openSans(
@@ -203,13 +210,13 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                           CandidateList(_newList[index], totalVotets),
                       itemCount: _newList.length,
                       shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       //physics: const AlwaysScrollableScrollPhysics(),
                     )
                   ],
                 );
               },
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               itemCount: voteArea.length,
             ),
           ),

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/election_model.dart';
 import '../../providers/user_provider.dart';
-import './countDownTimer.dart';
 
 class LiveElectionListView extends StatefulWidget {
   final Election _election;
-  LiveElectionListView(this._election);
+  final Function reload;
+  LiveElectionListView(this._election, this.reload);
 
   @override
   State<LiveElectionListView> createState() => _LiveElectionListViewState();
@@ -25,13 +27,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
       return percentage;
     }
 
-    int secondsRemaining() {
-      int remaining =
-          widget._election.endTime.difference(DateTime.now()).inSeconds;
-      return remaining;
-    }
-
-    bool hasTimerStopped = false;
+    int endtime = widget._election.endTime.millisecondsSinceEpoch;
     return GestureDetector(
       onTap: () {
         //Navigator.of(context).pushNamed();
@@ -129,11 +125,35 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                   ],
                 ),
               ),
+              Center(
+                child: CountdownTimer(
+                  endTime: endtime,
+                  widgetBuilder: (_, time) {
+                    if (time == null) {
+                      return Text(
+                        'Time ended. Pull to refresh',
+                        style: GoogleFonts.openSans(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: kF5F5F5,
+                        ),
+                      );
+                    }
+                    return Text(
+                      'Remaining Time: ${time?.hours ?? 0} : ${time?.min ?? 0} : ${time?.sec} ',
+                      style: GoogleFonts.openSans(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: kF5F5F5,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
-    ;
   }
 }

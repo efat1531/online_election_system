@@ -5,53 +5,29 @@ import '../models/election_model.dart';
 class ElectionList with ChangeNotifier {
   final List<Election> _electionList = [
     Election(
-      id: '1234',
-      title: 'Gazipur City Corporation Election ',
-      candidateList: [
-        Candidate(
-          id: '123',
-          name: 'Mirja Fakrul',
-          party: 'BNP',
-          area: 'Dhaka 01'
-        ),
-        Candidate(
-          id: '124',
-          name: 'obaidul Kader',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01'
-        ),
-        Candidate(
-          id: '125',
-          name: 'Rubaya Seikh',
-          party: 'Jamayet',
-          area: 'Dhaka 01'
-        ),
-      ],
-      validFor: 'Gazipur',
-      startTime: DateTime.parse("2023-06-13 12:18:00"),
-      endTime: DateTime.parse("2023-06-13 12:48:00"),
-    ),
-    Election(
       id: '1235',
       title: 'Bangladesh General Election',
       candidateList: [
         Candidate(
           id: '123',
           name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
           party: 'BNP',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
+          candidateNID: '1234567898',
           party: 'Awami Leauge',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
           party: 'Jamayet',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
       ],
       validFor: 'All',
@@ -65,20 +41,23 @@ class ElectionList with ChangeNotifier {
         Candidate(
           id: '123',
           name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
           party: 'BNP',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
+          candidateNID: '1234567898',
           party: 'Awami Leauge',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
           party: 'Jamayet',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
       ],
       validFor: 'All',
@@ -92,20 +71,23 @@ class ElectionList with ChangeNotifier {
         Candidate(
           id: '123',
           name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
           party: 'BNP',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
+          candidateNID: '1234567898',
           party: 'Awami Leauge',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
           party: 'Jamayet',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
       ],
       validFor: 'All',
@@ -119,20 +101,23 @@ class ElectionList with ChangeNotifier {
         Candidate(
           id: '123',
           name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
           party: 'BNP',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
+          candidateNID: '1234567898',
           party: 'Awami Leauge',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
           party: 'Jamayet',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
       ],
       validFor: 'All',
@@ -146,20 +131,23 @@ class ElectionList with ChangeNotifier {
         Candidate(
           id: '123',
           name: 'Mirja Fakrul',
+          candidateNID: '1234567899',
           party: 'BNP',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
           name: 'obaidul Kader',
+          candidateNID: '1234567898',
           party: 'Awami Leauge',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
           name: 'Rubaya Seikh',
+          candidateNID: '1234567897',
           party: 'Jamayet',
-          area: 'Dhaka 01'
+          area: 'Dhaka 01',
         ),
       ],
       validFor: 'All',

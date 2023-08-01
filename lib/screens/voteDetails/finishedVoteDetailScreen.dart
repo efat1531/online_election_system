@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/models/candidateModel.dart';
 import 'package:oes/providers/auth_provider.dart';
 import 'package:oes/screens/voteDetails/FinishedELectionCandidateList.dart';
 import '../../constants/color_constants.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../models/election_model.dart';
+import '../../constants/constants.dart';
 
 class FinishedVoteDetailsScreen extends StatelessWidget {
   static String routeName = '/homescreen/FinishedElectionViewByID';
@@ -176,10 +178,39 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (context, index) => CandidateList(
-                  election.candidateList[index], totalVotets),
-              itemCount: election.candidateList.length,
-              physics: const AlwaysScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                List<Candidate> _newList = election.candidateList
+                    .where(
+                      (element) => element.area == voteArea[index],
+                    )
+                    .toList();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 60,
+                      margin: const EdgeInsets.all(10),
+                      child: Text(
+                        voteArea[index],
+                        style: GoogleFonts.openSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListView.builder(
+                      itemBuilder: (context, index) =>
+                          CandidateList(_newList[index], totalVotets),
+                      itemCount: _newList.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      //physics: const AlwaysScrollableScrollPhysics(),
+                    )
+                  ],
+                );
+              },
+              physics: AlwaysScrollableScrollPhysics(),
+              itemCount: voteArea.length,
             ),
           ),
         ],

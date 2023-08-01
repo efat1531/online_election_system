@@ -458,7 +458,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                             district: selectedDisValue!,
                             division: selectedDivValue!,
                             gender: selectedGenValue!,
-                            electionArea: '',
+                            electionArea: selectedAreaValue!,
                           );
                           bool newNid = Provider.of<NidListProvider>(context,
                                   listen: false)

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../models/election_model.dart';
 import '../../providers/user_provider.dart';
+import '../../screens/liveElection/liveElectionView.dart';
 
 class LiveElectionListView extends StatefulWidget {
   final Election _election;
@@ -30,7 +31,8 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
     int endtime = widget._election.endTime.millisecondsSinceEpoch;
     return GestureDetector(
       onTap: () {
-        //Navigator.of(context).pushNamed();
+        Navigator.of(context).pushNamed(LiveElectionViewer.routeName,
+            arguments: widget._election);
       },
       child: SizedBox(
         height: 160,

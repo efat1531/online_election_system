@@ -10,7 +10,8 @@ import './providers/user_provider.dart';
 import './screens/nidAddScreen/nidaddScreen.dart';
 import './screens/homeScreen/homeScreen.dart';
 import './providers/electionListProvider.dart';
-import 'screens/voteDetails/finishedVoteDetailScreen.dart';
+import './screens/voteDetails/finishedVoteDetailScreen.dart';
+import './screens/liveElection/liveElectionView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,9 +63,14 @@ class MyApp extends StatelessWidget {
            */
           HomeScreen.routeName: (context) => HomeScreen(),
           /**
-           * Vote Detail Screen Route
+           * Finished Vote Detail Screen Route
            */
-          FinishedVoteDetailsScreen.routeName: (context) => FinishedVoteDetailsScreen(),
+          FinishedVoteDetailsScreen.routeName: (context) =>
+              FinishedVoteDetailsScreen(),
+          /**
+           * Live Election View Route
+           */
+          LiveElectionViewer.routeName: (context) => LiveElectionViewer(),
         },
         /**
          * If any route is not properly loaded.

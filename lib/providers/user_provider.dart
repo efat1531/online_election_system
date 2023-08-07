@@ -89,16 +89,16 @@ class UserProvider with ChangeNotifier {
     if (area == 'All') {
       return _users.length;
     } else {
-      final howMany = _users.values.where(
-          (element) => element.district.toLowerCase() == area.toLowerCase());
+      final howMany = _users.values.where((element) =>
+          element.electionArea.toLowerCase() == area.toLowerCase());
       return howMany.length;
     }
   }
 
-  String userArea(String userID)
-  {
-    MapEntry entry =
+  String userArea(String userID) {
+    MapEntry<String, UserModel> entry =
         _users.entries.firstWhere((element) => element.key == userID);
-    return entry.value['electionArea'];
+    print(entry.value.electionArea);
+    return entry.value.electionArea;
   }
 }

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/models/candidateModel.dart';
 
 import '../../constants/color_constants.dart';
 
 class CandidateListView extends StatefulWidget {
-  final candidate;
-  CandidateListView(this.candidate);
+  Candidate candidate;
+  String selectedCandidate;
+  CandidateListView(
+    this.candidate,
+    this.selectedCandidate,
+  );
 
   @override
   State<CandidateListView> createState() => _CandidateListViewState();
@@ -14,12 +19,22 @@ class CandidateListView extends StatefulWidget {
 class _CandidateListViewState extends State<CandidateListView> {
   @override
   Widget build(BuildContext context) {
+    bool isSelected = widget.candidate.candidateNID == widget.selectedCandidate
+        ? true
+        : false;
     final deviceSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(
         bottom: 10,
         left: 20,
         right: 20,
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(15),
+          bottomRight: Radius.circular(15),
+        ),
+        //color: Colors.black,
       ),
       child: Stack(
         children: [

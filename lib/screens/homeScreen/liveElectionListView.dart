@@ -134,19 +134,19 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                     if (time == null) {
                       return Text(
                         'Time ended. Pull to refresh',
-                        style: GoogleFonts.openSans(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: kF5F5F5,
+                        style: GoogleFonts.openSansCondensed(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: k929090,
                         ),
                       );
                     }
                     return Text(
                       'Remaining Time: ${time?.hours ?? 0} : ${time?.min ?? 0} : ${time?.sec} ',
-                      style: GoogleFonts.openSans(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: kF5F5F5,
+                      style: GoogleFonts.openSansCondensed(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: k929090,
                       ),
                     );
                   },

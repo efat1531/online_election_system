@@ -94,4 +94,11 @@ class UserProvider with ChangeNotifier {
       return howMany.length;
     }
   }
+
+  String userArea(String userID)
+  {
+    MapEntry entry =
+        _users.entries.firstWhere((element) => element.key == userID);
+    return entry.value['electionArea'];
+  }
 }

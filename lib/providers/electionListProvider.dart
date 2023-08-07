@@ -195,8 +195,8 @@ class ElectionList with ChangeNotifier {
         ),
       ],
       validFor: 'All',
-      startTime: DateTime.parse('2023-08-01 10:43:00'),
-      endTime: DateTime.parse('2023-08-05 10:30:00'),
+      startTime: DateTime.parse('2023-08-07 10:00:00'),
+      endTime: DateTime.parse('2023-08-07 10:50:00'),
     ),
   ];
 

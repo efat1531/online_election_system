@@ -29,22 +29,15 @@ class _CandidateListViewState extends State<CandidateListView> {
         left: 20,
         right: 20,
       ),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(15),
-          bottomRight: Radius.circular(15),
-        ),
-        //color: Colors.black,
-      ),
       child: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(15),
                 bottomRight: Radius.circular(15),
               ),
-              color: k2CB3CC,
+              color: isSelected == true ? Colors.amber : k2CB3CC,
             ),
             padding: const EdgeInsets.only(
               right: 20,

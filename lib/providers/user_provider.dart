@@ -98,7 +98,6 @@ class UserProvider with ChangeNotifier {
   String userArea(String userID) {
     MapEntry<String, UserModel> entry =
         _users.entries.firstWhere((element) => element.key == userID);
-    print(entry.value.electionArea);
     return entry.value.electionArea;
   }
 }

@@ -12,6 +12,7 @@ import './screens/homeScreen/homeScreen.dart';
 import './providers/electionListProvider.dart';
 import './screens/voteDetails/finishedVoteDetailScreen.dart';
 import './screens/liveElection/liveElectionView.dart';
+import './screens/addElectionScreen/addElection.dart';
 
 void main() {
   runApp(const MyApp());
@@ -71,6 +72,10 @@ class MyApp extends StatelessWidget {
            * Live Election View Route
            */
           LiveElectionViewer.routeName: (context) => LiveElectionViewer(),
+          /**
+           * Add Election Route
+           */
+          AddElection.routeName:(context) => AddElection(),
         },
         /**
          * If any route is not properly loaded.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oes/screens/addElectionScreen/addElection.dart';
 import './screens/loginScreen/login_screen.dart';
 import './screens/nidAddScreen/nidaddScreen.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
@@ -37,6 +38,12 @@ class _DummyState extends State<Dummy> {
                     Navigator.of(context).pushNamed(NidAddScreen.routeName);
                   },
                   child: Text('Nid Registration')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AddElection.routeName);
+                  },
+                  child: Text('Add Election')),
+              Text('This is dummy Screen'),
               Text('This is dummy Screen'),
               SizedBox(
                 height: 50,

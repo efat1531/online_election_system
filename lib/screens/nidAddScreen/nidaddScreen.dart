@@ -441,7 +441,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                       GestureDetector(
                         onTap: () async {
                           bool isValid = _formKey.currentState!.validate();
-                          print(isValid);
+                  
                           if (!isValid) return;
                           if (selectedDisValue == null ||
                               selectedDivValue == null ||

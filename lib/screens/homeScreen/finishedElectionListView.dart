@@ -9,7 +9,8 @@ import '../voteDetails/finishedVoteDetailScreen.dart';
 
 class FinishedElectionListView extends StatelessWidget {
   final Election electionModel;
-  const FinishedElectionListView(this.electionModel, {super.key});
+  FinishedElectionListView(this.electionModel, {super.key});
+  int totalVoters = 0;
 
   Election sortedElectionModel(Election election) {
     electionModel.candidateList.sort(
@@ -20,9 +21,15 @@ class FinishedElectionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void totalVotersCount() {
+      electionModel.validFor.forEach((element) {
+        totalVoters += Provider.of<UserProvider>(context, listen: false)
+            .voterCount(element);
+      });
+    }
+
     double castPercentCalculator(int casted) {
-      int totalVoters =
-          Provider.of<UserProvider>(context).voterCount(electionModel.validFor);
+      totalVotersCount();
       double percentage = (casted.toDouble() / totalVoters.toDouble()) * 100;
       return percentage;
     }

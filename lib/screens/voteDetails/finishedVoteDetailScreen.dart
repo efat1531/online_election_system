@@ -12,17 +12,25 @@ import '../../constants/constants.dart';
 class FinishedVoteDetailsScreen extends StatelessWidget {
   static String routeName = '/homescreen/FinishedElectionViewByID';
 
-  const FinishedVoteDetailsScreen({super.key});
+  FinishedVoteDetailsScreen({super.key});
+  int totalVoters = 0;
 
   @override
   Widget build(BuildContext context) {
     final election = ModalRoute.of(context)?.settings.arguments as Election;
-    int totalVotets =
-        Provider.of<UserProvider>(context).voterCount(election.validFor);
+
     String userID = Provider.of<AuthProvider>(context, listen: false).userId;
 
+    void totalVotersCount() {
+      election.validFor.forEach((element) {
+        totalVoters += Provider.of<UserProvider>(context, listen: false)
+            .voterCount(element);
+      });
+    }
+
     double percentageCalculator(int casted) {
-      return ((casted.toDouble() * 100.00) / (totalVotets.toDouble()));
+      totalVotersCount();
+      return ((casted.toDouble() * 100.00) / (totalVoters.toDouble()));
     }
 
     final deviceSize = MediaQuery.of(context).size;
@@ -99,7 +107,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                       vertical: 8,
                     ),
                     child: Text(
-                      'Total Voters : $totalVotets',
+                      'Total Voters : $totalVoters',
                       style: GoogleFonts.openSansCondensed(
                         color: kF8F8EE,
                         fontSize: 16,
@@ -174,7 +182,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                     ),
                     ListView.builder(
                       itemBuilder: (context, index) =>
-                          CandidateList(_newList[index], totalVotets),
+                          CandidateList(_newList[index], totalVoters),
                       itemCount: _newList.length,
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),

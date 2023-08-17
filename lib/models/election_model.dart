@@ -3,7 +3,7 @@ import './candidateModel.dart';
 class Election {
   final String id;
   final String title;
-  final String validFor;
+  final List<String> validFor;
   final List<Candidate> candidateList;
   final DateTime startTime;
   final DateTime endTime;

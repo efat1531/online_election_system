@@ -19,17 +19,13 @@ class LiveElectionViewer extends StatefulWidget {
 }
 
 class _LiveElectionViewerState extends State<LiveElectionViewer> {
+  int totalVoters = 0;
   @override
   Widget build(BuildContext context) {
     /**
      * Which Election is user viewing
      */
     final election = ModalRoute.of(context)?.settings.arguments as Election;
-    /**
-     * Total Voter for that election
-     */
-    int totalVotets = Provider.of<UserProvider>(context, listen: false)
-        .voterCount(election.validFor);
     /**
      * User ID of user
      */
@@ -40,9 +36,18 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
      */
     final String userArea =
         Provider.of<UserProvider>(context, listen: false).userArea(userID);
-
+    void totalVotersCount() {
+      
+    }
+    int getTotalVoters(){
+      election.validFor.forEach((element) {
+        totalVoters += Provider.of<UserProvider>(context, listen: false)
+            .voterCount(element);
+      });
+      return totalVoters;
+    }
     double percentageCalculator(int casted) {
-      return ((casted.toDouble() * 100.00) / (totalVotets.toDouble()));
+      return ((casted.toDouble() * 100.00) / (totalVoters.toDouble()));
     }
 
     /**
@@ -208,7 +213,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
                               vertical: 8,
                             ),
                             child: Text(
-                              'Total Voters : $totalVotets',
+                              'Total Voters : ${getTotalVoters()}',
                               style: GoogleFonts.openSansCondensed(
                                 color: kF8F8EE,
                                 fontSize: 16,

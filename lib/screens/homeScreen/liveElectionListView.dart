@@ -20,11 +20,18 @@ class LiveElectionListView extends StatefulWidget {
 }
 
 class _LiveElectionListViewState extends State<LiveElectionListView> {
+  int totalVoters = 0;
   @override
   Widget build(BuildContext context) {
+    void totalVotersCount() {
+      widget._election.validFor.forEach((element) {
+        totalVoters += Provider.of<UserProvider>(context, listen: false)
+            .voterCount(element);
+      });
+    }
+
     double castPercentCalculator(int casted) {
-      int totalVoters = Provider.of<UserProvider>(context)
-          .voterCount(widget._election.validFor);
+      totalVotersCount();
       double percentage = (casted.toDouble() / totalVoters.toDouble()) * 100;
       return percentage;
     }

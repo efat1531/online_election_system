@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:oes/models/candidateModel.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/constants.dart';
-import 'package:date_time_picker_widget/date_time_picker_widget.dart';
 import 'package:intl/intl.dart';
 
 class AddElection extends StatefulWidget {
@@ -17,12 +17,14 @@ class AddElection extends StatefulWidget {
 class _AddElectionState extends State<AddElection> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
+  List<Candidate> candidateList = [];
+  List<String> selectedArea = [];
+  String? candidateArea = '';
   final _voteAreaItems = voteArea.map((e) => MultiSelectItem(e, e)).toList();
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final _formkey = GlobalKey<FormState>();
-    List<String> selectedArea = [];
     Future<DateTime?> DatePick() => showDatePicker(
           context: context,
           initialDate: startDate,
@@ -60,9 +62,98 @@ class _AddElectionState extends State<AddElection> {
       });
     }
 
+    var candidateNidController = new TextEditingController();
+    var candidatePartController = new TextEditingController();
+
+    Future showCandidateInput() => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Add Candidate',
+              style: GoogleFonts.montserrat(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: k3B3B3B,
+              ),
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 30,
+                    width: deviceSize.width * 0.80,
+                    child: TextField(
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Candidate NID',
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: k3B3B3B,
+                        ),
+                      ),
+                      controller: candidateNidController,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 30,
+                    width: deviceSize.width * 0.80,
+                    child: TextField(
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Party Name',
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: k3B3B3B,
+                        ),
+                      ),
+                      controller: candidatePartController,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Cancel',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: kMainColor,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Submit',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: kMainColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
     return Scaffold(
       bottomNavigationBar: GestureDetector(
-        onTap: () {},
+        onTap: () async {
+          await showCandidateInput();
+        },
         child: Container(
           height: 50,
           margin: const EdgeInsets.only(
@@ -169,6 +260,7 @@ class _AddElectionState extends State<AddElection> {
              * This form for getting input of the election
              */
             Form(
+              key: _formkey,
               child: Column(
                 children: [
                   /**

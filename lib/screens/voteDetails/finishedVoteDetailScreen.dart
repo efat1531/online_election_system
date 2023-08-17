@@ -28,39 +28,6 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kF5F5F5,
-      // bottomNavigationBar:
-      //     ((election.startTime.compareTo(_currentTime)) <= 0) &&
-      //             ((election.endTime.compareTo(_currentTime)) >= 0) &&
-      //             (election.canVote(userID))
-      //         ? GestureDetector(
-      //             onTap: () {},
-      //             child: Container(
-      //               height: 50,
-      //               margin: const EdgeInsets.only(
-      //                 bottom: 10,
-      //                 left: 15,
-      //                 right: 15,
-      //               ),
-      //               padding: const EdgeInsets.symmetric(
-      //                 vertical: 5,
-      //                 horizontal: 20,
-      //               ),
-      //               decoration: BoxDecoration(
-      //                 color: k1A2D3A,
-      //                 borderRadius: BorderRadius.circular(15),
-      //               ),
-      //               child: Text(
-      //                 'Cast Your Vote',
-      //                 style: GoogleFonts.openSansCondensed(
-      //                   fontSize: 25,
-      //                   fontWeight: FontWeight.bold,
-      //                   color: kCDCDCD,
-      //                 ),
-      //                 textAlign: TextAlign.center,
-      //               ),
-      //             ),
-      //           )
-      //         : null,
       body: Column(
         children: [
           Container(

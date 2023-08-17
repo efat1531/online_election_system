@@ -656,7 +656,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               height: 20,
                             ),
                             /**
-                       * This is Submit Button for login Screen
+                       * This is Submit Button for registration Screen
                        */
                             GestureDetector(
                               onTap: () async {

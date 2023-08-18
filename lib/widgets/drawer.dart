@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
+import '../screens/addElectionScreen/addElection.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -46,6 +47,15 @@ class MainDrawer extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddElection.routeName);
+            },
+            child: Text('Add Election'),
           )
         ],
       ),

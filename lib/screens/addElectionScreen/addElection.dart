@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:oes/models/candidateModel.dart';
+import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/constants.dart';
 import 'package:intl/intl.dart';
+import '../../providers/user_provider.dart';
+import './candidateList.dart';
 
 class AddElection extends StatefulWidget {
   static String routeName = '/admin/add_election';
@@ -19,23 +22,30 @@ class _AddElectionState extends State<AddElection> {
   DateTime endDate = DateTime.now();
   List<Candidate> candidateList = [];
   List<String> selectedArea = [];
-  String? candidateArea = '';
   final _voteAreaItems = voteArea.map((e) => MultiSelectItem(e, e)).toList();
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final _formkey = GlobalKey<FormState>();
+    /**
+     * Date Picker
+     */
     Future<DateTime?> DatePick() => showDatePicker(
           context: context,
           initialDate: startDate,
           firstDate: startDate,
           lastDate: DateTime(2050),
         );
-
+    /**
+     * Time Picker
+     */
     Future<TimeOfDay?> TimePick() => showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
         );
+    /**
+     * Date and Time Pick initialize
+     */
     Future pickDateTime(int which) async {
       final selectedDate = await DatePick();
       if (selectedDate == null) return;
@@ -62,12 +72,36 @@ class _AddElectionState extends State<AddElection> {
       });
     }
 
-    var candidateNidController = new TextEditingController();
-    var candidatePartController = new TextEditingController();
-
+    var candidateNidController = TextEditingController();
+    var candidatePartController = TextEditingController();
+    /**
+     * Validate Candidate
+     */
+    bool validateCandidate() {
+      final candidateNid = candidateNidController.text;
+      if (candidateNid.length != 10 && candidateNid.length != 13) return false;
+      final candidatePartyName = candidatePartController.text;
+      final candidateArea = Provider.of<UserProvider>(context, listen: false)
+          .candidateArea(candidateNid);
+      print('Candidate NID - $candidateNid Candidate area - $candidateArea');
+      Candidate newCandidate = Candidate(
+        id: '',
+        party: candidatePartyName,
+        area: candidateArea,
+        candidateNID: candidateNid,
+      );
+      candidateList.add(newCandidate);
+      return true;
+    }
+    /**
+     * Pop up dialougle for candidate Input
+     */
     Future showCandidateInput() => showDialog(
           context: context,
           builder: (context) => AlertDialog(
+            /**
+             * Title contain the text needs to be displayed
+             */
             title: Text(
               'Add Candidate',
               style: GoogleFonts.montserrat(
@@ -76,15 +110,22 @@ class _AddElectionState extends State<AddElection> {
                 color: k3B3B3B,
               ),
             ),
+            /**
+             * This contain the input feilds
+             */
             content: SingleChildScrollView(
               child: Column(
                 children: [
+                  /**
+                   * First input NID Number
+                   */
                   Container(
                     height: 30,
                     width: deviceSize.width * 0.80,
                     child: TextField(
                       autofocus: true,
                       keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         hintText: 'Candidate NID',
                         hintStyle: GoogleFonts.montserrat(
@@ -97,14 +138,17 @@ class _AddElectionState extends State<AddElection> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+                  /**
+                   * Second input Party Name
+                   */
                   Container(
                     height: 30,
                     width: deviceSize.width * 0.80,
                     child: TextField(
                       autofocus: true,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         hintText: 'Party Name',
                         hintStyle: GoogleFonts.montserrat(
@@ -119,7 +163,13 @@ class _AddElectionState extends State<AddElection> {
                 ],
               ),
             ),
+            /**
+             * This widget save candidates or cancel
+             */
             actions: [
+              /**
+               * Cancel Button
+               */
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -133,8 +183,12 @@ class _AddElectionState extends State<AddElection> {
                   ),
                 ),
               ),
+              /**
+               * Save Button
+               */
               TextButton(
                 onPressed: () {
+                  if (validateCandidate() == false) return;
                   Navigator.of(context).pop();
                 },
                 child: Text(
@@ -150,6 +204,9 @@ class _AddElectionState extends State<AddElection> {
           ),
         );
     return Scaffold(
+      /**
+       * Add candidate bar at bottom
+       */
       bottomNavigationBar: GestureDetector(
         onTap: () async {
           await showCandidateInput();
@@ -461,7 +518,17 @@ class _AddElectionState extends State<AddElection> {
                   ),
                 ],
               ),
-            )
+            ),
+            /**
+             * Display List of Candidate
+             */
+            ListView.builder(
+              itemBuilder: (context, index) =>
+                  CandidateListView(candidateList[index]),
+              itemCount: candidateList.length,
+              shrinkWrap: true,
+              physics: AlwaysScrollableScrollPhysics(),
+            ),
           ],
         ),
       ),

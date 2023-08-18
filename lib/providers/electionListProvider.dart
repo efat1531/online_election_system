@@ -70,21 +70,18 @@ class ElectionList with ChangeNotifier {
       candidateList: [
         Candidate(
           id: '123',
-          
           candidateNID: '1234567899',
           party: 'BNP',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
-         
           candidateNID: '1234567898',
           party: 'Awami Leauge',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
-          
           candidateNID: '1234567897',
           party: 'Jamayet',
           area: 'Dhaka 01',
@@ -100,7 +97,6 @@ class ElectionList with ChangeNotifier {
       candidateList: [
         Candidate(
           id: '123',
-          
           candidateNID: '1234567899',
           party: 'BNP',
           area: 'Dhaka 01',
@@ -113,7 +109,6 @@ class ElectionList with ChangeNotifier {
         ),
         Candidate(
           id: '125',
-          
           candidateNID: '1234567897',
           party: 'Jamayet',
           area: 'Dhaka 01',
@@ -129,21 +124,18 @@ class ElectionList with ChangeNotifier {
       candidateList: [
         Candidate(
           id: '123',
-          
           candidateNID: '1234567899',
           party: 'BNP',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
-         
           candidateNID: '1234567898',
           party: 'Awami Leauge',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
-         
           candidateNID: '1234567897',
           party: 'Jamayet',
           area: 'Dhaka 01',
@@ -159,28 +151,24 @@ class ElectionList with ChangeNotifier {
       candidateList: [
         Candidate(
           id: '123',
-         
           candidateNID: '1234567899',
           party: 'BNP',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '124',
-         
           candidateNID: '1234567898',
           party: 'Awami Leauge',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '125',
-          
           candidateNID: '1234567897',
           party: 'Jamayet',
           area: 'Dhaka 01',
         ),
         Candidate(
           id: '1234',
-         
           party: 'BNP',
           area: 'Dhaka 02',
           candidateNID: '1234567892',
@@ -213,6 +201,13 @@ class ElectionList with ChangeNotifier {
   List<Election> finishedElectionList() {
     final list = _electionList
         .where((element) => element.endTime.compareTo(DateTime.now()) < 0)
+        .toList();
+    return list;
+  }
+
+  List<Election> upcomingElectionList() {
+    final list = _electionList
+        .where((element) => element.startTime.compareTo(DateTime.now()) > 0)
         .toList();
     return list;
   }

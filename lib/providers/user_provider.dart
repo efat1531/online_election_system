@@ -100,4 +100,10 @@ class UserProvider with ChangeNotifier {
         _users.entries.firstWhere((element) => element.key == userID);
     return entry.value.electionArea;
   }
+
+  String candidateArea(String nid) {
+    MapEntry<String, UserModel> entry =
+        _users.entries.firstWhere((element) => element.value.nid == nid);
+    return entry.value.electionArea;
+  }
 }

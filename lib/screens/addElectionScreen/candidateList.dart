@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oes/models/candidateModel.dart';
-import 'dart:io';
 import '../../constants/color_constants.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +18,6 @@ class CandidateListView extends StatefulWidget {
 class _CandidateListViewState extends State<CandidateListView> {
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(
         bottom: 10,
@@ -56,6 +54,7 @@ class _CandidateListViewState extends State<CandidateListView> {
                       ),
                       color: kF5F5F5,
                     ),
+                    // ignore: unnecessary_null_comparison
                     child: widget.candidate.symbol != null
                         ? Image.network(
                             widget.candidate.symbol,

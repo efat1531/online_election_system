@@ -7,6 +7,7 @@ import '../../models/election_model.dart';
 import '../../providers/user_provider.dart';
 import '../voteDetails/finishedVoteDetailScreen.dart';
 
+// ignore: must_be_immutable
 class FinishedElectionListView extends StatelessWidget {
   final Election electionModel;
   FinishedElectionListView(this.electionModel, {super.key});

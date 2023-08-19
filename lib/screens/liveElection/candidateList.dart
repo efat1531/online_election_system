@@ -4,6 +4,7 @@ import 'package:oes/models/candidateModel.dart';
 
 import '../../constants/color_constants.dart';
 
+// ignore: must_be_immutable
 class CandidateListView extends StatefulWidget {
   Candidate candidate;
   String selectedCandidate;
@@ -22,7 +23,6 @@ class _CandidateListViewState extends State<CandidateListView> {
     bool isSelected = widget.candidate.candidateNID == widget.selectedCandidate
         ? true
         : false;
-    final deviceSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(
         bottom: 10,
@@ -59,6 +59,7 @@ class _CandidateListViewState extends State<CandidateListView> {
                       ),
                       color: kF5F5F5,
                     ),
+                    // ignore: unnecessary_null_comparison
                     child: widget.candidate.symbol != null
                         ? Image.network(
                             widget.candidate.symbol,

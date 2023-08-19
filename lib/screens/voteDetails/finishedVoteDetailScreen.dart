@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oes/models/candidateModel.dart';
-import 'package:oes/providers/auth_provider.dart';
 import 'package:oes/screens/voteDetails/FinishedELectionCandidateList.dart';
 import '../../constants/color_constants.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import '../../providers/user_provider.dart';
 import '../../models/election_model.dart';
 import '../../constants/constants.dart';
 
+// ignore: must_be_immutable
 class FinishedVoteDetailsScreen extends StatelessWidget {
   static String routeName = '/homescreen/FinishedElectionViewByID';
 
@@ -19,7 +19,6 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final election = ModalRoute.of(context)?.settings.arguments as Election;
 
-    String userID = Provider.of<AuthProvider>(context, listen: false).userId;
 
     void totalVotersCount() {
       election.validFor.forEach((element) {

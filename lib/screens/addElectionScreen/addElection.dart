@@ -1,5 +1,3 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -105,7 +103,6 @@ class _AddElectionState extends State<AddElection> {
           .ref()
           .child('Image-$candidateNid/${_selectedCandidateSymbol?.name}');
       await ref.putFile(file);
-
 
       imageURL = await ref.getDownloadURL();
       print('Image URL - $imageURL');

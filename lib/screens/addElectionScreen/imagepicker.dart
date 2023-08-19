@@ -58,7 +58,6 @@ class _CandidateIconImageState extends State<CandidateIconImage> {
       );
     }
 
-    final deviceSize = MediaQuery.of(context).size;
     return Container(
       height: 200,
       width: 200,

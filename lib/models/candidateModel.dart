@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Candidate {
   String party;
   String area;

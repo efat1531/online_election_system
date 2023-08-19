@@ -63,6 +63,7 @@ class CandidateList extends StatelessWidget {
                       ),
                       color: kF5F5F5,
                     ),
+                    // ignore: unnecessary_null_comparison
                     child: candidate.symbol != null
                         ? Image.network(
                             candidate.symbol,

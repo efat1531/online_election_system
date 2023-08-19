@@ -1,5 +1,3 @@
-import 'package:oes/constants/constants.dart';
-
 import './candidateModel.dart';
 import 'package:dio/dio.dart';
 
@@ -38,10 +36,10 @@ class Election {
               })
           .toList(),
     });
+    print(response.data);
   }
 
   bool canVote(String userID, String userArea) {
-    bool canVote = true;
     final listA = validFor.where((element) => element == 'Bangladesh');
     if (listA.isEmpty) {
       final listB = validFor.where((element) => element == userArea);

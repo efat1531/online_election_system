@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "795782964222",
+    "firebase_url": "https://online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "online-election-system-fb9f4",
+    "storage_bucket": "online-election-system-fb9f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795782964222:android:b713d6ba3dfb4d27e496af",
+        "android_client_info": {
+          "package_name": "com.example.oes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795782964222-2733qvcbj3g6sl4o9as3q43q2hsmbq7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.oes",
+            "certificate_hash": "633ae4387d762e467dcfdde5b2efb6a90694600b"
+          }
+        },
+        {
+          "client_id": "795782964222-rtpdo606ialiuj2jd5jj0miaot5ouorc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAic1Or--GIGGT1IDqhy_1djY-38-cIqH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795782964222-rtpdo606ialiuj2jd5jj0miaot5ouorc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

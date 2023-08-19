@@ -20,7 +20,7 @@ class UserModel {
     required this.district,
     required this.division,
     required this.gender,
-    this.userRole = "Citizen",
+    required this.userRole,
     required this.electionArea,
   });
 }

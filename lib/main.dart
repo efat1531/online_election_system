@@ -1,3 +1,5 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:oes/constants/color_constants.dart';
 import 'package:oes/providers/nid_databse_provider.dart';
@@ -14,7 +16,12 @@ import './screens/voteDetails/finishedVoteDetailScreen.dart';
 import './screens/liveElection/liveElectionView.dart';
 import './screens/addElectionScreen/addElection.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
   runApp(const MyApp());
 }
 
@@ -75,7 +82,7 @@ class MyApp extends StatelessWidget {
           /**
            * Add Election Route
            */
-          AddElection.routeName:(context) => AddElection(),
+          AddElection.routeName: (context) => AddElection(),
         },
         /**
          * If any route is not properly loaded.

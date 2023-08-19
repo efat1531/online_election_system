@@ -117,7 +117,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Vote Casted: ${widget._election.voterUserId.length -1 }',
+                      'Vote Casted: ${widget._election.voterUserId.length - 1}',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -125,7 +125,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                       ),
                     ),
                     Text(
-                      'Cast Percentage: ${castPercentCalculator(widget._election.voterUserId.length -1 ).toStringAsFixed(2)}%',
+                      'Cast Percentage: ${castPercentCalculator(widget._election.voterUserId.length - 1).toStringAsFixed(2)}%',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -150,7 +150,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                       );
                     }
                     return Text(
-                      'Remaining Time: ${time?.hours ?? 0} : ${time?.min ?? 0} : ${time?.sec} ',
+                      'Remaining Time: ${time.hours == null ? '00' : time.hours.toString().padLeft(2, '0')} : ${time.min == null ? '00' : time.min.toString().padLeft(2, '0')} : ${time.sec == null ? '00' : time.sec.toString().padLeft(2, '0')}',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

@@ -175,6 +175,7 @@ class ElectionList with ChangeNotifier {
                       'candidateArea': e.area,
                       'candidateParty': e.party,
                       'candidateVoteCount': e.voteCount,
+                      'symbolURL': e.symbol
                     })
                 .toList(),
           },
@@ -219,6 +220,7 @@ class ElectionList with ChangeNotifier {
                       area: e['candidateArea'],
                       candidateNID: e['candidateNID'],
                       voteCount: e['candidateVoteCount'],
+                      symbol: e['symbolURL'],
                     ),
                   )
                   .toList(),

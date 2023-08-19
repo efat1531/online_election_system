@@ -1,5 +1,8 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:oes/models/candidateModel.dart';
 import 'package:oes/models/election_model.dart';
@@ -11,6 +14,9 @@ import 'package:intl/intl.dart';
 import '../../providers/user_provider.dart';
 import './candidateList.dart';
 import './imagepicker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddElection extends StatefulWidget {
   static String routeName = '/admin/add_election';
@@ -26,8 +32,11 @@ class _AddElectionState extends State<AddElection> {
   List<Candidate> candidateList = [];
   List<String> selectedArea = [];
   String electionName = '';
+  XFile? _selectedCandidateSymbol;
+  UploadTask? uploadTask;
   final _voteAreaItems = voteArea.map((e) => MultiSelectItem(e, e)).toList();
   final formkey = GlobalKey<FormState>();
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -82,18 +91,31 @@ class _AddElectionState extends State<AddElection> {
     /**
      * Validate Candidate
      */
-    bool validateCandidate() {
+    Future<bool> validateCandidate() async {
       final candidateNid = candidateNidController.text;
       if (candidateNid.length != 10 && candidateNid.length != 13) return false;
       final candidatePartyName = candidatePartController.text;
       final candidateArea = Provider.of<UserProvider>(context, listen: false)
           .candidateArea(candidateNid);
-      print('Candidate NID - $candidateNid Candidate area - $candidateArea');
+      String? imageURL = '';
+      final file = File(_selectedCandidateSymbol!.path);
+      print(auth.currentUser);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage
+          .ref()
+          .child('Image-$candidateNid/${_selectedCandidateSymbol?.name}');
+      await ref.putFile(file);
+
+
+      imageURL = await ref.getDownloadURL();
+      print('Image URL - $imageURL');
+
       Candidate newCandidate = Candidate(
         party: candidatePartyName,
         area: candidateArea,
         candidateNID: candidateNid,
         voteCount: 0,
+        symbol: imageURL.toString(),
       );
       candidateList.add(newCandidate);
       return true;
@@ -170,7 +192,11 @@ class _AddElectionState extends State<AddElection> {
                   const SizedBox(
                     height: 20,
                   ),
-                  CandidateIconImage(),
+                  CandidateIconImage(
+                    onSelectImage: (image) {
+                      _selectedCandidateSymbol = image;
+                    },
+                  ),
                 ],
               ),
             ),

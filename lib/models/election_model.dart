@@ -34,10 +34,10 @@ class Election {
                 'candidateArea': e.area,
                 'candidateParty': e.party,
                 'candidateVoteCount': e.voteCount,
+                'symbolURL': e.symbol,
               })
           .toList(),
     });
-    print(response.statusMessage);
   }
 
   bool canVote(String userID, String userArea) {
@@ -45,10 +45,15 @@ class Election {
     final listA = validFor.where((element) => element == 'Bangladesh');
     if (listA.isEmpty) {
       final listB = validFor.where((element) => element == userArea);
-      if (listB.isEmpty) canVote = false;
+      if (listB.isEmpty) {
+        return false;
+      }
     }
     final list = voterUserId.where((element) => element == userID);
-    if (list.isEmpty) canVote = canVote & true;
-    return canVote;
+    if (list.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

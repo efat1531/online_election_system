@@ -1,5 +1,5 @@
 // ignore_for_file: slash_for_doc_comments
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -59,9 +59,16 @@ class AuthProvider with ChangeNotifier {
     } catch (error) {
       rethrow;
     }
+
+    final credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
   }
 
   String get userId {
     return _userID;
+  }
+
+  Future<void> signout() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

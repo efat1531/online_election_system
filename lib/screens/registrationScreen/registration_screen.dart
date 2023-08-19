@@ -62,6 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         division: _user.division,
         gender: _user.gender,
         electionArea: _user.electionArea,
+        userRole: _user.userRole,
       );
     });
   }
@@ -81,6 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     division: '',
     gender: '',
     electionArea: '',
+    userRole: 'Citizen',
   );
 
   @override
@@ -226,6 +228,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         division: _user.division,
                                         gender: _user.gender,
                                         electionArea: _user.electionArea,
+                                        userRole: _user.userRole,
                                       );
                                     },
                                     validator: (value) {
@@ -280,6 +283,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         division: _user.division,
                                         gender: _user.gender,
                                         electionArea: _user.electionArea,
+                                        userRole: _user.userRole,
                                       );
                                     },
                                     validator: (value) {
@@ -336,6 +340,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     division: _user.division,
                                     gender: _user.gender,
                                     electionArea: _user.electionArea,
+                                    userRole: _user.userRole,
                                   );
                                 },
                                 validator: (value) {
@@ -393,6 +398,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     division: _user.division,
                                     gender: _user.gender,
                                     electionArea: _user.electionArea,
+                                    userRole: _user.userRole,
                                   );
                                 },
                                 validator: (value) {
@@ -447,6 +453,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     division: _user.division,
                                     gender: _user.gender,
                                     electionArea: _user.electionArea,
+                                    userRole: _user.userRole,
                                   );
                                   _authData['email'] = newValue;
                                 },
@@ -704,6 +711,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     gender: varificationResult.gender,
                                     electionArea:
                                         varificationResult.electionArea,
+                                    userRole: 'Citizen',
                                   );
                                   try {
                                     await Provider.of<AuthProvider>(context,

@@ -52,10 +52,22 @@ class _CandidateListViewState extends State<CandidateListView> {
                   Container(
                     height: 50,
                     width: 50,
-                    child: Image.asset(
-                      'assets/images/Blank_Square.png',
-                      fit: BoxFit.cover,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                      color: kF5F5F5,
                     ),
+                    child: widget.candidate.symbol != null
+                        ? Image.network(
+                            widget.candidate.symbol,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/images/Blank_Square.png',
+                            fit: BoxFit.cover,
+                          ),
                   ),
                   const SizedBox(
                     width: 20,

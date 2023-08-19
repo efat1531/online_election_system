@@ -69,6 +69,7 @@ class UserProvider with ChangeNotifier {
             division: value['divison'],
             gender: value['gender'],
             electionArea: value['election_area'],
+            userRole: value['userRole'],
           ),
         });
       });

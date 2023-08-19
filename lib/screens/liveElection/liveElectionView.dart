@@ -11,9 +11,12 @@ import '../../providers/auth_provider.dart';
 import '../../providers/user_provider.dart';
 import './candidateList.dart';
 
+// ignore: must_be_immutable
 class LiveElectionViewer extends StatefulWidget {
   static String routeName = 'LiveElectionView';
   String selectedCandidate = '0000';
+
+  LiveElectionViewer({super.key});
   @override
   State<LiveElectionViewer> createState() => _LiveElectionViewerState();
 }
@@ -58,6 +61,19 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
     /**
      * Reload
      */
+
+    bool canVoteUser() {
+      if (((election.startTime.compareTo(DateTime.now())) <= 0) &&
+          (election.endTime.compareTo(DateTime.now())) >= 0) {
+      } else {
+        return false;
+      }
+      if (election.canVote(userID, userArea) == false) {
+        return false;
+      }
+      return true;
+    }
+
     Future<void> _reload() async {
       Future.delayed(Duration(seconds: 2));
       setState(() {
@@ -65,20 +81,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
         widget.selectedCandidate = '0000';
       });
     }
-    bool canVoteUser()
-    {
-      bool cv=true;
-      if(((election.startTime.compareTo(DateTime.now())) <=
-                  0) &&
-              (election.endTime.compareTo(DateTime.now())) >= 0)cv=true;
-        else {
-        return false;
-      }
-      if(election.canVote(userID, userArea)==false) {
-        return false;
-      }
-      return true;
-    }
+
     bool _isLoading = false;
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -89,16 +92,11 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
       bottomNavigationBar: canVoteUser()
           ? GestureDetector(
               onTap: () async {
-                setState(() {
-                  totalVoters = 0;
-                  _isLoading = true;
-                });
                 Candidate choosedCandidate = _candidate.firstWhere((element) =>
                     element.candidateNID == widget.selectedCandidate);
-                Future.delayed(Duration(seconds: 2));
                 choosedCandidate.addVote();
-                election.addVoterUserID(userID);
-                _isLoading = false;
+                await election.addVoterUserID(userID);
+                await _reload();
               },
               child: Container(
                 height: 50,
@@ -130,14 +128,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
       /**
                * Button Over. Now Display part
                */
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
-                backgroundColor: kF5F5F5,
-              ),
-            )
-          : LiquidPullToRefresh(
+      body: LiquidPullToRefresh(
               onRefresh: _reload,
               color: k2CB3CC,
               child: ListView(
@@ -253,7 +244,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
                                 );
                               }
                               return Text(
-                                'Remaining Time: ${time?.hours ?? 0} : ${time?.min ?? 0} : ${time?.sec} ',
+                                'Remaining Time: ${time.hours == null ? '00' : time.hours.toString().padLeft(2, '0')} : ${time.min == null ? '00' : time.min.toString().padLeft(2, '0')} : ${time.sec == null ? '00' : time.sec.toString().padLeft(2, '0')}',
                                 style: GoogleFonts.openSansCondensed(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,

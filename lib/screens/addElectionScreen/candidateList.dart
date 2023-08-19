@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oes/models/candidateModel.dart';
-
+import 'dart:io';
 import '../../constants/color_constants.dart';
 
 // ignore: must_be_immutable
@@ -29,7 +29,7 @@ class _CandidateListViewState extends State<CandidateListView> {
       child: Stack(
         children: [
           Container(
-            decoration:const BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(15),
                 bottomRight: Radius.circular(15),
@@ -49,10 +49,22 @@ class _CandidateListViewState extends State<CandidateListView> {
                   Container(
                     height: 50,
                     width: 50,
-                    child: Image.asset(
-                      'assets/images/Blank_Square.png',
-                      fit: BoxFit.cover,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                      color: kF5F5F5,
                     ),
+                    child: widget.candidate.symbol != null
+                        ? Image.network(
+                            widget.candidate.symbol,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/images/Blank_Square.png',
+                            fit: BoxFit.cover,
+                          ),
                   ),
                   const SizedBox(
                     width: 20,

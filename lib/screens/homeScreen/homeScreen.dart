@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final GlobalKey<ScaffoldState> _globalkey = GlobalKey();
 
     void reload() {
-      print('Relaod');
       setState(() {
         _finishedelectionList =
-            Provider.of<ElectionList>(context, listen: false).finishedElectionList();
-        _liveElectionList =
-            Provider.of<ElectionList>(context, listen: false).liveElectionList();
+            Provider.of<ElectionList>(context, listen: false)
+                .finishedElectionList();
+        _liveElectionList = Provider.of<ElectionList>(context, listen: false)
+            .liveElectionList();
       });
     }
 
@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
          * Scaffold Key
          */
         key: _globalkey,
+        backgroundColor: kF5F5F5,
         /**
          * Code for drawer to open
          * 

@@ -26,10 +26,15 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
         totalVoters += Provider.of<UserProvider>(context, listen: false)
             .voterCount(element);
       });
+      //print(totalVoters);
+    }
+
+    int voterCount() {
+      totalVotersCount();
+      return totalVoters;
     }
 
     double percentageCalculator(int casted) {
-      totalVotersCount();
       return ((casted.toDouble() * 100.00) / (totalVoters.toDouble()));
     }
 
@@ -107,7 +112,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                       vertical: 8,
                     ),
                     child: Text(
-                      'Total Voters : $totalVoters',
+                      'Total Voters : ${voterCount()}',
                       style: GoogleFonts.openSansCondensed(
                         color: kF8F8EE,
                         fontSize: 16,
@@ -131,7 +136,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Vote Cast : ${election.voterUserId.length}',
+                          'Vote Cast : ${election.voterUserId.length - 1}',
                           style: GoogleFonts.openSansCondensed(
                             color: kF8F8EE,
                             fontSize: 15,
@@ -139,7 +144,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Cast Percentage : ${percentageCalculator(election.voterUserId.length)}%',
+                          'Cast Percentage : ${percentageCalculator(election.voterUserId.length - 1).toStringAsFixed(2)}%',
                           style: GoogleFonts.openSansCondensed(
                             color: kF8F8EE,
                             fontSize: 15,
@@ -172,7 +177,7 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                         left: 20,
                         right: 20,
                       ),
-                      child: Text(
+                      child: (_newList.length==0)? null: Text(
                         voteArea[index],
                         style: GoogleFonts.openSans(
                           fontSize: 20,

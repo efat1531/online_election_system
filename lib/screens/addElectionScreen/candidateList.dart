@@ -4,8 +4,10 @@ import 'package:oes/models/candidateModel.dart';
 
 import '../../constants/color_constants.dart';
 
+// ignore: must_be_immutable
 class CandidateListView extends StatefulWidget {
   Candidate candidate;
+  // ignore: use_key_in_widget_constructors
   CandidateListView(
     this.candidate,
   );

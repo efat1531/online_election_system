@@ -36,16 +36,14 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
      */
     final String userArea =
         Provider.of<UserProvider>(context, listen: false).userArea(userID);
-    void totalVotersCount() {
-      
-    }
-    int getTotalVoters(){
+    int getTotalVoters() {
       election.validFor.forEach((element) {
         totalVoters += Provider.of<UserProvider>(context, listen: false)
             .voterCount(element);
       });
       return totalVoters;
     }
+
     double percentageCalculator(int casted) {
       return ((casted.toDouble() * 100.00) / (totalVoters.toDouble()));
     }
@@ -63,10 +61,24 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
     Future<void> _reload() async {
       Future.delayed(Duration(seconds: 2));
       setState(() {
+        totalVoters = 0;
         widget.selectedCandidate = '0000';
       });
     }
-
+    bool canVoteUser()
+    {
+      bool cv=true;
+      if(((election.startTime.compareTo(DateTime.now())) <=
+                  0) &&
+              (election.endTime.compareTo(DateTime.now())) >= 0)cv=true;
+        else {
+        return false;
+      }
+      if(election.canVote(userID, userArea)==false) {
+        return false;
+      }
+      return true;
+    }
     bool _isLoading = false;
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -74,13 +86,11 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
       /**
        * Cast Vote button
        */
-      bottomNavigationBar: ((election.startTime.compareTo(DateTime.now())) <=
-                  0) &&
-              ((election.endTime.compareTo(DateTime.now())) >= 0) &&
-              (election.canVote(userID))
+      bottomNavigationBar: canVoteUser()
           ? GestureDetector(
               onTap: () async {
                 setState(() {
+                  totalVoters = 0;
                   _isLoading = true;
                 });
                 Candidate choosedCandidate = _candidate.firstWhere((element) =>
@@ -270,7 +280,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Vote Cast : ${election.voterUserId.length}',
+                                  'Vote Cast : ${election.voterUserId.length - 1}',
                                   style: GoogleFonts.openSansCondensed(
                                     color: kF8F8EE,
                                     fontSize: 15,
@@ -278,7 +288,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
                                   ),
                                 ),
                                 Text(
-                                  'Cast Percentage : ${percentageCalculator(election.voterUserId.length)}%',
+                                  'Cast Percentage : ${percentageCalculator(election.voterUserId.length - 1).toStringAsFixed(2)}%',
                                   style: GoogleFonts.openSansCondensed(
                                     color: kF8F8EE,
                                     fontSize: 15,
@@ -304,6 +314,7 @@ class _LiveElectionViewerState extends State<LiveElectionViewer> {
                         setState(() {
                           widget.selectedCandidate =
                               _candidate[index].candidateNID;
+                          totalVoters = 0;
                         });
                       },
                       child: CandidateListView(

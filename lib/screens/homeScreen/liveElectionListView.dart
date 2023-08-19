@@ -117,7 +117,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Vote Casted: ${widget._election.voterUserId.length}',
+                      'Vote Casted: ${widget._election.voterUserId.length -1 }',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -125,7 +125,7 @@ class _LiveElectionListViewState extends State<LiveElectionListView> {
                       ),
                     ),
                     Text(
-                      'Cast Percentage: ${castPercentCalculator(widget._election.voterUserId.length)}%',
+                      'Cast Percentage: ${castPercentCalculator(widget._election.voterUserId.length -1 ).toStringAsFixed(2)}%',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

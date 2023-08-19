@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:oes/models/candidateModel.dart';
+import 'package:oes/models/election_model.dart';
+import 'package:oes/providers/electionListProvider.dart';
 import 'package:provider/provider.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/constants.dart';
 import 'package:intl/intl.dart';
 import '../../providers/user_provider.dart';
 import './candidateList.dart';
+import './imagepicker.dart';
 
 class AddElection extends StatefulWidget {
   static String routeName = '/admin/add_election';
@@ -22,11 +25,12 @@ class _AddElectionState extends State<AddElection> {
   DateTime endDate = DateTime.now();
   List<Candidate> candidateList = [];
   List<String> selectedArea = [];
+  String electionName = '';
   final _voteAreaItems = voteArea.map((e) => MultiSelectItem(e, e)).toList();
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    final _formkey = GlobalKey<FormState>();
     /**
      * Date Picker
      */
@@ -36,6 +40,7 @@ class _AddElectionState extends State<AddElection> {
           firstDate: startDate,
           lastDate: DateTime(2050),
         );
+
     /**
      * Time Picker
      */
@@ -85,14 +90,15 @@ class _AddElectionState extends State<AddElection> {
           .candidateArea(candidateNid);
       print('Candidate NID - $candidateNid Candidate area - $candidateArea');
       Candidate newCandidate = Candidate(
-        id: '',
         party: candidatePartyName,
         area: candidateArea,
         candidateNID: candidateNid,
+        voteCount: 0,
       );
       candidateList.add(newCandidate);
       return true;
     }
+
     /**
      * Pop up dialougle for candidate Input
      */
@@ -149,6 +155,7 @@ class _AddElectionState extends State<AddElection> {
                     child: TextField(
                       autofocus: true,
                       keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
                         hintText: 'Party Name',
                         hintStyle: GoogleFonts.montserrat(
@@ -160,6 +167,10 @@ class _AddElectionState extends State<AddElection> {
                       controller: candidatePartController,
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CandidateIconImage(),
                 ],
               ),
             ),
@@ -184,7 +195,7 @@ class _AddElectionState extends State<AddElection> {
                 ),
               ),
               /**
-               * Save Button
+               * Submit Button
                */
               TextButton(
                 onPressed: () {
@@ -305,8 +316,30 @@ class _AddElectionState extends State<AddElection> {
                         size: 25,
                         color: kMainColor,
                       ),
-                      onPressed: () {
-                        print('Do Nothing now');
+                      onPressed: () async {
+                        final isValid = await formkey.currentState?.validate();
+                        //print(isValid);
+                        if (isValid == false) return;
+                        formkey.currentState?.save();
+                        final election = Election(
+                          id: '123',
+                          title: electionName,
+                          candidateList: candidateList,
+                          validFor: selectedArea,
+                          startTime: startDate,
+                          endTime: endDate,
+                          voterUserId: ['AB'],
+                        );
+                        try {
+                          await Provider.of<ElectionList>(context,
+                                  listen: false)
+                              .addElection(election);
+                        } catch (error) {
+                          print(error);
+                        }
+
+                        Navigator.of(context)
+                            .pushReplacementNamed(AddElection.routeName);
                       },
                     ),
                   )
@@ -317,7 +350,7 @@ class _AddElectionState extends State<AddElection> {
              * This form for getting input of the election
              */
             Form(
-              key: _formkey,
+              key: formkey,
               child: Column(
                 children: [
                   /**
@@ -355,7 +388,7 @@ class _AddElectionState extends State<AddElection> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextFormField(
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.done,
                       style: GoogleFonts.montserrat(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -380,7 +413,9 @@ class _AddElectionState extends State<AddElection> {
                         }
                         return null;
                       },
-                      onSaved: (newValue) {},
+                      onSaved: (newValue) {
+                        electionName = newValue!;
+                      },
                     ),
                   ),
                   const SizedBox(

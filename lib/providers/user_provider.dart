@@ -86,7 +86,7 @@ class UserProvider with ChangeNotifier {
   }
 
   int voterCount(String area) {
-    if (area == 'All') {
+    if (area == 'Bangladesh') {
       return _users.length;
     } else {
       final howMany = _users.values.where((element) =>

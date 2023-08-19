@@ -75,7 +75,7 @@ class CandidateList extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '${calculateVotePercentage(candidate.voteCount)}%',
+                    '${calculateVotePercentage(candidate.voteCount).toStringAsFixed(2)}%',
                     style: GoogleFonts.openSansCondensed(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

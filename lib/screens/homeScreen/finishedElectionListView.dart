@@ -114,7 +114,7 @@ class FinishedElectionListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Vote Casted: ${electionModel.voterUserId.length}',
+                      'Vote Casted: ${electionModel.voterUserId.length - 1}',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class FinishedElectionListView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Cast Percentage: ${castPercentCalculator(electionModel.voterUserId.length)}%',
+                      'Cast Percentage: ${castPercentCalculator(electionModel.voterUserId.length - 1).toStringAsFixed(2)}%',
                       style: GoogleFonts.openSansCondensed(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

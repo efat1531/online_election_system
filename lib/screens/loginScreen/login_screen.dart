@@ -14,6 +14,7 @@ import '../../constants/color_constants.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/httpException.dart';
 import '../../providers/nid_databse_provider.dart';
+import '../../providers/electionListProvider.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/login';
@@ -36,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         Provider.of<NidListProvider>(context, listen: false).fetchNidData();
         Provider.of<UserProvider>(context, listen: false).fetchUsersData();
+        Provider.of<ElectionList>(context, listen: false).fetchElections();
       } catch (error) {
         showDialog(
           context: context,

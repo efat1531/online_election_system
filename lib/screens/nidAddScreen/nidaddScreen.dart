@@ -426,7 +426,7 @@ class _NidAddScreenState extends State<NidAddScreen> {
                        * Area Selection
                        */
                       CustomDropdownButton2(
-                        hint: 'Select Gender',
+                        hint: 'Select Area',
                         dropdownItems: voteArea,
                         value: selectedAreaValue,
                         onChanged: (value) {

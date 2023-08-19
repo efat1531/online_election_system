@@ -1,183 +1,126 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../models/candidateModel.dart';
 import '../models/election_model.dart';
+import 'package:http/http.dart' as http;
 
 class ElectionList with ChangeNotifier {
-  final List<Election> _electionList = [
-    Election(
-      id: '1235',
-      title: 'Bangladesh General Election',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '1234',
-          party: 'BNP',
-          area: 'Dhaka 02',
-          candidateNID: '1234567892',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-    ),
-    Election(
-      id: '1236',
-      title: 'Bangladesh General Election ',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-    ),
-    Election(
-      id: '1237',
-      title: 'Bangladesh General Election ',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-    ),
-    Election(
-      id: '1235',
-      title: 'Bangladesh General Election',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-    ),
-    Election(
-      id: '1235',
-      title: 'Bangladesh General Election',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-    ),
-    Election(
-      id: '1235',
-      title: 'Bangladesh General Election',
-      candidateList: [
-        Candidate(
-          id: '123',
-          candidateNID: '1234567899',
-          party: 'BNP',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '124',
-          candidateNID: '1234567898',
-          party: 'Awami Leauge',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '125',
-          candidateNID: '1234567897',
-          party: 'Jamayet',
-          area: 'Dhaka 01',
-        ),
-        Candidate(
-          id: '1234',
-          party: 'BNP',
-          area: 'Dhaka 02',
-          candidateNID: '1234567892',
-        ),
-      ],
-      validFor: ['All'],
-      startTime: DateTime.parse('2023-08-07 10:00:00'),
-      endTime: DateTime.parse('2023-08-13 10:30:00'),
-    ),
+  List<Election> _electionList = [
+    // Election(
+    //   id: '1235',
+    //   title: 'Bangladesh General Election',
+    //   candidateList: [
+    //     Candidate(
+    //       candidateNID: '1234567899',
+    //       party: 'BNP',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567898',
+    //       party: 'Awami Leauge',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567897',
+    //       party: 'Jamayet',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       party: 'BNP',
+    //       area: 'Dhaka 02',
+    //       candidateNID: '1234567892',
+    //       voteCount: 0,
+    //     ),
+    //   ],
+    //   validFor: ['Bangladesh'],
+    //   startTime: DateTime.now(),
+    //   endTime: DateTime.now(),
+    // ),
+    // Election(
+    //   id: '1236',
+    //   title: 'Bangladesh General Election ',
+    //   candidateList: [
+    //     Candidate(
+    //       candidateNID: '1234567899',
+    //       party: 'BNP',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567898',
+    //       party: 'Awami Leauge',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567897',
+    //       party: 'Jamayet',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //   ],
+    //   validFor: ['Dhaka 01'],
+    //   startTime: DateTime.now(),
+    //   endTime: DateTime.now(),
+    // ),
+    // Election(
+    //   id: '1237',
+    //   title: 'Bangladesh General Election ',
+    //   candidateList: [
+    //     Candidate(
+    //       candidateNID: '1234567899',
+    //       party: 'BNP',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567898',
+    //       party: 'Awami Leauge',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567897',
+    //       party: 'Jamayet',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //   ],
+    //   validFor: ['Bangladesh'],
+    //   startTime: DateTime.now(),
+    //   endTime: DateTime.now(),
+    // ),
+    // Election(
+    //   id: '1235',
+    //   title: 'Bangladesh General Election',
+    //   candidateList: [
+    //     Candidate(
+    //       candidateNID: '1234567899',
+    //       party: 'BNP',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567898',
+    //       party: 'Awami Leauge',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //     Candidate(
+    //       candidateNID: '1234567897',
+    //       party: 'Jamayet',
+    //       area: 'Dhaka 01',
+    //       voteCount: 0,
+    //     ),
+    //   ],
+    //   validFor: ['Bangladesh'],
+    //   startTime: DateTime.now(),
+    //   endTime: DateTime.now(),
+    // ),
   ];
 
   List<Election> get electionList {
@@ -210,5 +153,87 @@ class ElectionList with ChangeNotifier {
         .where((element) => element.startTime.compareTo(DateTime.now()) > 0)
         .toList();
     return list;
+  }
+
+  Future<void> addElection(Election election) async {
+    final url = Uri.https(
+        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/elections.json');
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'title': election.title,
+            'starttime': election.startTime.toIso8601String(),
+            'endtime': election.endTime.toIso8601String(),
+            'validAreas': election.validFor,
+            'voters': election.voterUserId,
+            'candidate': election.candidateList
+                .map((e) => {
+                      'candidateNID': e.candidateNID,
+                      'candidateArea': e.area,
+                      'candidateParty': e.party,
+                      'candidateVoteCount': e.voteCount,
+                    })
+                .toList(),
+          },
+        ),
+      );
+      final responsedata = json.decode(response.body);
+      print(responsedata['name']);
+      Election elct = Election(
+        id: responsedata['name'],
+        title: election.title,
+        candidateList: election.candidateList,
+        validFor: election.validFor,
+        startTime: election.startTime,
+        endTime: election.endTime,
+        voterUserId: election.voterUserId,
+      );
+      _electionList.insert(0, elct);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> fetchElections() async {
+    final url = Uri.https(
+        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/elections.json');
+    try {
+      final response = await http.get(url);
+      if (json.decode(response.body) == null) return;
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Election> extractedList = [];
+      extractedData.forEach(
+        (key, value) {
+          extractedList.add(
+            Election(
+              id: key,
+              title: value['title'],
+              candidateList: (value['candidate'] as List<dynamic>)
+                  .map(
+                    (e) => Candidate(
+                      party: e['candidateParty'],
+                      area: e['candidateArea'],
+                      candidateNID: e['candidateNID'],
+                      voteCount: e['candidateVoteCount'],
+                    ),
+                  )
+                  .toList(),
+              validFor: (value['validAreas'].cast<String>()),
+              startTime: DateTime.parse(value['starttime']),
+              endTime: DateTime.parse(value['endtime']),
+              voterUserId: value['voters'].cast<String>(),
+            ),
+          );
+        },
+      );
+      _electionList = extractedList;
+      //print(extractedData);
+    } catch (error) {
+      rethrow;
+    }
   }
 }

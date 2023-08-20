@@ -232,7 +232,7 @@ class ElectionList with ChangeNotifier {
           );
         },
       );
-      _electionList = extractedList;
+      _electionList = List.from(extractedList.reversed);
       //print(extractedData);
     } catch (error) {
       rethrow;

@@ -30,7 +30,6 @@ List<String> voteArea = [
   'Gazipur 02',
   'Gazipur 03',
   'Gazipur 04',
-  'Bangladesh'
 ];
 
 List<String> genValues = ["Male", "Female", "Other"];

@@ -19,13 +19,18 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final election = ModalRoute.of(context)?.settings.arguments as Election;
 
-
     void totalVotersCount() {
       election.validFor.forEach((element) {
         totalVoters += Provider.of<UserProvider>(context, listen: false)
             .voterCount(element);
       });
       //print(totalVoters);
+    }
+
+    int areaVoteCount(String area) {
+      int voterCountofArea =
+          Provider.of<UserProvider>(context, listen: false).voterCount(area);
+      return voterCountofArea;
     }
 
     int voterCount() {
@@ -176,17 +181,20 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                         left: 20,
                         right: 20,
                       ),
-                      child: (_newList.length==0)? null: Text(
-                        voteArea[index],
-                        style: GoogleFonts.openSans(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: (_newList.length == 0)
+                          ? null
+                          : Text(
+                              voteArea[index],
+                              style: GoogleFonts.openSans(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                     ListView.builder(
-                      itemBuilder: (context, index) =>
-                          CandidateList(_newList[index], totalVoters),
+                      itemBuilder: (context, index) => CandidateList(
+                        _newList[index],areaVoteCount(_newList[index].area)
+                      ),
                       itemCount: _newList.length,
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),

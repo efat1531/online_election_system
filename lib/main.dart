@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:oes/constants/color_constants.dart';
 import 'package:oes/providers/nid_databse_provider.dart';
 import 'package:provider/provider.dart';
-import './dummy_screen.dart';
 import './screens/loginScreen/login_screen.dart';
 import './providers/auth_provider.dart';
 import './screens/registrationScreen/registration_screen.dart';
@@ -48,11 +47,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Online Election System',
         theme: ThemeData(
           primaryColor: kMainColor,
         ),
-        home: Dummy(),
+        home: LoginScreen(),
         routes: {
           /**
            * Login Screen Route

@@ -14,6 +14,10 @@ import './providers/electionListProvider.dart';
 import './screens/voteDetails/finishedVoteDetailScreen.dart';
 import './screens/liveElection/liveElectionView.dart';
 import './screens/addElectionScreen/addElection.dart';
+import './screens/finishedElectionListScreen/finishedElectionList.dart';
+import './screens/liveElectionScreen/liveElectionListView.dart';
+import './screens/upcomingElection/upcomingElectionList.dart';
+import './screens/upcomingElection/upcomingElectionDetails.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,6 +86,26 @@ class MyApp extends StatelessWidget {
            * Add Election Route
            */
           AddElection.routeName: (context) => AddElection(),
+          /**
+           * Finished Election List route
+           */
+          FinishedElectionScreen.routename: (context) =>
+              FinishedElectionScreen(),
+          /**
+           * Live Election List Route
+           */
+          LiveElectionListViewScreen.routename: (context) =>
+              LiveElectionListViewScreen(),
+          /**
+           * Upcoming election ListView Route
+           */
+          UpcomingElectionListView.routename: (context) =>
+              UpcomingElectionListView(),
+          /**
+           * Upcoming Election Details Route
+           */
+          UpcomingElectionDetails.routename: (context) =>
+              UpcomingElectionDetails(),
         },
         /**
          * If any route is not properly loaded.

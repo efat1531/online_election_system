@@ -193,13 +193,12 @@ class FinishedVoteDetailsScreen extends StatelessWidget {
                     ),
                     ListView.builder(
                       itemBuilder: (context, index) => CandidateList(
-                        _newList[index],areaVoteCount(_newList[index].area)
-                      ),
+                          _newList[index], areaVoteCount(_newList[index].area)),
                       itemCount: _newList.length,
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
                       //physics: const AlwaysScrollableScrollPhysics(),
-                    )
+                    ),
                   ],
                 );
               },

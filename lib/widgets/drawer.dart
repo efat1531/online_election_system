@@ -9,6 +9,9 @@ import '../providers/user_provider.dart';
 import '../screens/addElectionScreen/addElection.dart';
 import '../screens/nidAddScreen/nidaddScreen.dart';
 import '../screens/loginScreen/login_screen.dart';
+import '../screens/liveElectionScreen/liveElectionListView.dart';
+import '../screens/finishedElectionListScreen/finishedElectionList.dart';
+import '../screens/upcomingElection/upcomingElectionList.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -147,12 +150,11 @@ class MainDrawer extends StatelessWidget {
                         'https://upload.wikimedia.org/wikipedia/bn/thumb/c/c9/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6_%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%AC%E0%A6%BE%E0%A6%9A%E0%A6%A8_%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%B6%E0%A6%A8%E0%A7%87%E0%A6%B0_%E0%A6%B2%E0%A7%8B%E0%A6%97%E0%A7%8B.svg/512px-%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6_%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%AC%E0%A6%BE%E0%A6%9A%E0%A6%A8_%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%B6%E0%A6%A8%E0%A7%87%E0%A6%B0_%E0%A6%B2%E0%A7%8B%E0%A6%97%E0%A7%8B.svg.png'),
                   ),
                 ),
-               
                 Positioned(
                   top: 70,
                   left: 20,
                   child: Text(
-                    '${userDetails.firstName} ${checkUserRole()?' ':userDetails.lastName}',
+                    '${userDetails.firstName} ${checkUserRole() ? ' ' : userDetails.lastName}',
                     style: GoogleFonts.openSans(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -203,6 +205,9 @@ class MainDrawer extends StatelessWidget {
             thickness: 1,
             color: kMainColor,
           ),
+          /**
+           * Home Button
+           */
           Container(
             height: 50,
             width: deviceSize.width - 70,
@@ -239,6 +244,9 @@ class MainDrawer extends StatelessWidget {
             thickness: 1,
             color: kMainColor,
           ),
+          /**
+           * Live Election Screen
+           */
           Container(
             height: 50,
             width: deviceSize.width - 70,
@@ -266,8 +274,8 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    HomeScreen.routeName, (route) => false);
+                Navigator.of(context)
+                    .pushNamed(LiveElectionListViewScreen.routename);
               },
             ),
           ),
@@ -275,6 +283,9 @@ class MainDrawer extends StatelessWidget {
             thickness: 1,
             color: kMainColor,
           ),
+          /**
+           * Finished Election Button
+           */
           Container(
             height: 50,
             width: deviceSize.width - 70,
@@ -302,8 +313,8 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    HomeScreen.routeName, (route) => false);
+                Navigator.of(context)
+                    .pushNamed(FinishedElectionScreen.routename);
               },
             ),
           ),
@@ -379,6 +390,46 @@ class MainDrawer extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamed(AddElection.routeName);
+                    },
+                  ),
+                )
+              : const SizedBox.shrink(),
+          checkUserRole()
+              ? const Divider(
+                  thickness: 1,
+                  color: kMainColor,
+                )
+              : const SizedBox.shrink(),
+          checkUserRole()
+              ? Container(
+                  height: 50,
+                  width: deviceSize.width - 70,
+                  //color: Colors.red,
+                  child: ListTile(
+                    horizontalTitleGap: 6.0,
+                    leading: Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: k1A2D3A,
+                      ),
+                      child: const Icon(
+                        Icons.watch_later_outlined,
+                        size: 30,
+                        color: kFFFFFF,
+                      ),
+                    ),
+                    title: Text(
+                      'Upcoming Elections',
+                      style: GoogleFonts.openSansCondensed(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(UpcomingElectionListView.routename);
                     },
                   ),
                 )

@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:oes/models/candidateModel.dart';
+
+import '../../constants/color_constants.dart';
+
+// ignore: must_be_immutable
+class UpcomingCandidateListView extends StatefulWidget {
+  Candidate candidate;
+  UpcomingCandidateListView(
+    this.candidate,
+  );
+
+  @override
+  State<UpcomingCandidateListView> createState() => _UpcomingCandidateListViewState();
+}
+
+class _UpcomingCandidateListViewState extends State<UpcomingCandidateListView> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 10,
+        left: 20,
+        right: 20,
+      ),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+              color: k2CB3CC,
+            ),
+            padding: const EdgeInsets.only(
+              right: 20,
+            ),
+            height: 50,
+          ),
+          Positioned(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                      color: kF5F5F5,
+                    ),
+                    // ignore: unnecessary_null_comparison
+                    child: widget.candidate.symbol != null
+                        ? Image.network(
+                            widget.candidate.symbol,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/images/Blank_Square.png',
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    widget.candidate.party,
+                    style: GoogleFonts.openSansCondensed(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: kEFEFEF,
+                      letterSpacing: 1.25,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

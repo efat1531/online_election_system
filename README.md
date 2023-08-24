@@ -51,7 +51,7 @@ In latest release you will find the testable version of this code.
 - email: test@test.com
 - password: test@test
 
-###### User info 02
+##### User info 02
 
 - email: test1@test.com
 - password: test@test
@@ -61,7 +61,7 @@ In latest release you will find the testable version of this code.
 - email: test2@test.com
 - password: test@test
 
-###### User info 04
+##### User info 04
 
 - email: test3@test.com
 - password: test@test

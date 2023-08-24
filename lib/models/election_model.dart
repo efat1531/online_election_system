@@ -1,5 +1,6 @@
 import './candidateModel.dart';
 import 'package:dio/dio.dart';
+import '../constants/api_constant.dart';
 
 class Election {
   final String id;
@@ -20,8 +21,7 @@ class Election {
 
   Future<void> addVoterUserID(String userID) async {
     final Dio _dio = Dio();
-    final url =
-        'https://online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app/elections/${id}.json';
+    final url = '${addVoterUserIdapi}${id}.json';
     _dio.options.headers['Content-type'] = 'application/json; charset=UTF-8';
     voterUserId.add(userID);
     final response = await _dio.patch(url, data: {

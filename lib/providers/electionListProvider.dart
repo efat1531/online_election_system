@@ -1,127 +1,12 @@
 import 'dart:convert';
-
+import '../constants/api_constant.dart';
 import 'package:flutter/material.dart';
 import '../models/candidateModel.dart';
 import '../models/election_model.dart';
 import 'package:http/http.dart' as http;
 
 class ElectionList with ChangeNotifier {
-  List<Election> _electionList = [
-    // Election(
-    //   id: '1235',
-    //   title: 'Bangladesh General Election',
-    //   candidateList: [
-    //     Candidate(
-    //       candidateNID: '1234567899',
-    //       party: 'BNP',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567898',
-    //       party: 'Awami Leauge',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567897',
-    //       party: 'Jamayet',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       party: 'BNP',
-    //       area: 'Dhaka 02',
-    //       candidateNID: '1234567892',
-    //       voteCount: 0,
-    //     ),
-    //   ],
-    //   validFor: ['Bangladesh'],
-    //   startTime: DateTime.now(),
-    //   endTime: DateTime.now(),
-    // ),
-    // Election(
-    //   id: '1236',
-    //   title: 'Bangladesh General Election ',
-    //   candidateList: [
-    //     Candidate(
-    //       candidateNID: '1234567899',
-    //       party: 'BNP',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567898',
-    //       party: 'Awami Leauge',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567897',
-    //       party: 'Jamayet',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //   ],
-    //   validFor: ['Dhaka 01'],
-    //   startTime: DateTime.now(),
-    //   endTime: DateTime.now(),
-    // ),
-    // Election(
-    //   id: '1237',
-    //   title: 'Bangladesh General Election ',
-    //   candidateList: [
-    //     Candidate(
-    //       candidateNID: '1234567899',
-    //       party: 'BNP',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567898',
-    //       party: 'Awami Leauge',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567897',
-    //       party: 'Jamayet',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //   ],
-    //   validFor: ['Bangladesh'],
-    //   startTime: DateTime.now(),
-    //   endTime: DateTime.now(),
-    // ),
-    // Election(
-    //   id: '1235',
-    //   title: 'Bangladesh General Election',
-    //   candidateList: [
-    //     Candidate(
-    //       candidateNID: '1234567899',
-    //       party: 'BNP',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567898',
-    //       party: 'Awami Leauge',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //     Candidate(
-    //       candidateNID: '1234567897',
-    //       party: 'Jamayet',
-    //       area: 'Dhaka 01',
-    //       voteCount: 0,
-    //     ),
-    //   ],
-    //   validFor: ['Bangladesh'],
-    //   startTime: DateTime.now(),
-    //   endTime: DateTime.now(),
-    // ),
-  ];
+  List<Election> _electionList = [];
 
   List<Election> get electionList {
     return [..._electionList];
@@ -156,9 +41,7 @@ class ElectionList with ChangeNotifier {
   }
 
   Future<void> addElection(Election election) async {
-    final url = Uri.https(
-        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/elections.json');
+    final url = Uri.https(election_api, '/elections.json');
     try {
       final response = await http.post(
         url,
@@ -199,9 +82,7 @@ class ElectionList with ChangeNotifier {
   }
 
   Future<void> fetchElections() async {
-    final url = Uri.https(
-        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/elections.json');
+    final url = Uri.https(election_api, '/elections.json');
     try {
       final response = await http.get(url);
       if (json.decode(response.body) == null) return;

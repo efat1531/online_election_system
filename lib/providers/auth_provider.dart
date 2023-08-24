@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/httpException.dart';
+import '../constants/api_constant.dart';
 
 class AuthProvider with ChangeNotifier {
   late String _userID;
@@ -13,8 +14,7 @@ class AuthProvider with ChangeNotifier {
    * SignUp Function for User
    */
   Future<void> signup(String email, String password) async {
-    final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD978OZurANZGMwTazOnMB_CcENxWdoVAk');
+    final url = Uri.parse(signUp_api);
     try {
       final response = await http.post(
         url,
@@ -38,8 +38,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signin(String email, String password) async {
-    final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD978OZurANZGMwTazOnMB_CcENxWdoVAk');
+    final url = Uri.parse(signIn_api);
     try {
       final response = await http.post(
         url,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/api_constant.dart';
 import '../models/user_description.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,9 +17,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> addUser(UserModel _receivedData, String userId) async {
-    final url = Uri.https(
-        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/users.json');
+    final url = Uri.https(election_api, '/users.json');
     try {
       await http.post(
         url,
@@ -48,9 +47,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> fetchUsersData() async {
-    final url = Uri.https(
-        'online-election-system-fb9f4-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/users.json');
+    final url = Uri.https(election_api, '/users.json');
     try {
       final response = await http.get(url);
       if (jsonDecode(response.body) == null) return;
@@ -87,10 +84,9 @@ class UserProvider with ChangeNotifier {
   }
 
   int voterCount(String area) {
-    
-      final howMany = _users.values.where((element) =>
-          element.electionArea.toLowerCase() == area.toLowerCase());
-      return howMany.length;
+    final howMany = _users.values.where(
+        (element) => element.electionArea.toLowerCase() == area.toLowerCase());
+    return howMany.length;
   }
 
   String userArea(String userID) {

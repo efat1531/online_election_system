@@ -37,7 +37,7 @@ This project is an innovative and user-friendly online election system powered b
 - Thoroughly test your code before submitting a pull request to ensure a bug-free and functional contribution.
 ## Contact Information
 
-For any queries or assistance, please reach out to me at efat1531@gmail.com or [Linkdin](https://www.linkedin.com/in/sp3cter).
+For any queries or assistance, please reach out to me at efat1531@gmail.com or [Linkedin](https://www.linkedin.com/in/sp3cter).
 ## Testable Version
 
 In latest release you will find the testable version of this code.
